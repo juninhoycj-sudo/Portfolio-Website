@@ -7,6 +7,6 @@ With some basic HTML and CSS experience, I inspected the vibed code and will be 
 
 You are able to view my progress by visiting: https://jooniee.vercel.app/
 
-You can see the aspirational site my clicking on the aspirational button on the top right.
+Under no circumstances do you click playground. Ever.
 
 Join me in learning!

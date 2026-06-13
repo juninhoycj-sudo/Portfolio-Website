@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>jooniee's website</title>
+    <link rel="stylesheet" href="styles2.css"/>
+    <style>
+
+        .image-container {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+            background: var(--bg);
+            overflow:hidden
+        }
+
+        .wipe-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+
+            animation: circleWipeScale 2.5s linear infinite;
+        }
+
+        @keyframes circleWipeScale {
+            0%   { clip-path: polygon(50% 50%, 50% 0%, 50% 0%, 50% 0%, 50% 0%, 50% 0%); }
+            25%  { clip-path: polygon(50% 50%, 50% 0%, 100% 0%, 100% 50%, 100% 50%, 100% 50%); }
+            50%  { clip-path: polygon(50% 50%, 50% 0%, 100% 0%, 100% 100%, 50% 100%, 50% 100%); }
+            75%  { clip-path: polygon(50% 50%, 50% 0%, 100% 0%, 100% 100%, 0% 100%, 0% 50%); }
+            100% { clip-path: polygon(50% 50%, 50% 0%, 100% 0%, 100% 100%, 0% 100%, 0% 0%, 50% 0%); }
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: var(--sans);
+        }
+
+        .intro-overlay{
+            position: fixed;
+            inset: 0;
+            background: var(--bg);
+            z-index: 9999;
+            transition: transform 0.8s cubic-bezier(0.77, 0, 0.175, 1);
+        }
+
+        .intro{
+            position: fixed;
+            inset: 0;
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .intro-typewriter{
+            font-family: var(--sans);
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            line-height: 1.05;
+            font-size: clamp(1.4rem, 4vw, 2.5rem);
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            gap: 0.5em;
+        }
+
+
+        @keyframes revealLogo{
+            to{
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .intro-overlay.hide{
+            transform: translateY(-100%);
+        }
+
+        .main-content{
+            padding: 2rem;
+            text-align: center;
+            margin-top: 20vh;
+        }
+
+        main {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        h1 {
+            font-size: clamp(1.5rem, 7vw, 5rem);
+            font-weight: 900;
+        }
+
+        p {
+            color: var(--text);
+            font-size: 1.2rem;
+        }
+
+        a {
+            color: var(--muted);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        a:hover { color: pink; }
+
+        .cursor {
+            display: inline-block;
+            width: 2px;
+            height: 1em;
+            background: #4ade80;
+            animation: blink 0.75s step-end infinite;
+        }
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="intro-overlay" id="intro">
+        <div class="intro">
+            <div class="intro-typewriter">
+                <div class="image-container">
+                    <img src="https://media.tenor.com/wIbOLo3S7dgAAAAM/toys-r-us-geoffrey-the-giraffe.gif" alt="logo" class="wipe-image">
+                    </div>  
+            </div>
+        </div>
+    </div>
+    <nav>
+        <span style="color: var(--text); font-size: 14px;">my version (wip)</span>
+        <ul>
+            <li><a href="about.html">about</a></li>
+            <li><a href="projects.html">projects</a></li>
+            <li><a href="contact.html">contact</a></li>
+            <li><a href="aspirational.html">aspirational</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <h1 id="heading">beta test page<span class="cursor"></span></h1>
+        <p>i'm <span id="role"></span>, clearly.</p>
+    </main>
+
+    <script>
+        const phrase = "joonie.dev";
+        const introText = document.getElementById('intro-text');
+
+
+        window.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                const intro = document.getElementById('intro');
+                intro.classList.add('hide');
+
+                setTimeout(() => {
+                    intro.remove();
+                }, 800);
+            }, 2000);
+        });
+
+        const e1 = document.getElementById('role');
+        const words = ["a yes", "a larper", "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"]
+        let wordIndex = 0, charIndex = 0, deleting = false;
+
+        function typeRole() {
+            const word = words[wordIndex];
+            if (!deleting) {
+                e1.textContent = word.slice(0, charIndex++);
+                if (charIndex > word.length) {
+                    deleting = true;
+                    setTimeout(typeRole, 100);
+                    return;
+                }
+            }
+            else {
+                e1.textContent = word.slice(0, charIndex--);
+                if (charIndex < 0) {
+                    deleting = false;
+                    wordIndex = (wordIndex + 1) % words.length;
+                    charIndex = 0;
+                    setTimeout(typeRole, 100);
+                    return;
+                }
+            }
+
+            setTimeout(typeRole, deleting ? 10 : 10)
+        }
+        typeRole();
+        let idx = 0;
+        function typeIntro() {
+            introText.textContent = phrase.slice(0, idx++);
+            if (idx <= phrase.length) {
+                setTimeout(typeIntro, 150);
+            }
+        }
+
+        typeIntro();
+    </script>
+</body>
+</html>
