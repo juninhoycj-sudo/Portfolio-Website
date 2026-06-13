@@ -5,7 +5,7 @@
     <title>jooniee's website</title>
     <style>
         :root {
-            --bg: navy;
+            --bg: #0d0f12;
             --text: #e8eaf0;
             --muted: #7a7f8e;
             --accent: #4ade80;
@@ -24,10 +24,11 @@
             top: 0; left: 0; right: 0;
             height: 56px;
             display: flex;
+            flex-direction: row;
             align-items: center;
             justify-content: space-between;
             padding: 0 2rem;
-            background: #0d0f12;
+            background: var(--bg);
         }
 
         nav a {
@@ -38,19 +39,14 @@
 
         nav a:hover { color: var(--text); }
 
-        .finished-link {
-            font-size: 12px;
-            border: 1px solid var(--muted);
-            padding: 5px 12px;
-            border-radius: 4px;
-            transition: color 0.2s, border-color 0.2s;
-        }
 
-        .finished-link:hover {
-            color: var(--accent) !important;
-            border-color: var(--accent);
+        nav ul {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 1.5rem;
+            list-style: none;
         }
-
         main {
             height: 100vh;
             display: flex;
@@ -64,7 +60,7 @@
             border: 1px solid red;
             padding: 20px;
             margin: 40px;
-            font-size: 7cqh;
+            font-size: clamp(1.5rem, 7vw, 5rem);
             font-weight: 900;
         }
 
@@ -94,10 +90,14 @@
     </style>
 </head>
 <body>
-
     <nav>
         <span style="color: var(--text); font-size: 14px;">my version (wip)</span>
-        <a class="finished-link" href="aspirational.html">view finished site →</a>
+        <ul>
+            <li><a href="about.html">about</a></li>
+            <li><a href="projects.html">projects</a></li>
+            <li><a href="contact.html">contact</a></li>
+            <li><a href="aspirational.html">aspirational</a></li>
+        </ul>
     </nav>
 
     <main>
@@ -113,7 +113,7 @@
              });
 
         const e1 = document.getElementById('role');
-        const words = ["a developer", "a builder", "in love", "gay"];
+        const words = ["a developer", "a builder", "in love", "bob", "hi jamie"];
         let wordIndex = 0, charIndex = 0, deleting = false;
 
         function typeRole() {
