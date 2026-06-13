@@ -24,15 +24,22 @@
         }
 
         @keyframes circleWipeScale {
-            0%   { clip-path: polygon(50% 50%, 50% 0%, 50% 0%, 50% 0%, 50% 0%, 50% 0%); }
-            25%  { clip-path: polygon(50% 50%, 50% 0%, 100% 0%, 100% 50%, 100% 50%, 100% 50%); }
-            50%  { clip-path: polygon(50% 50%, 50% 0%, 100% 0%, 100% 100%, 50% 100%, 50% 100%); }
-            75%  { clip-path: polygon(50% 50%, 50% 0%, 100% 0%, 100% 100%, 0% 100%, 0% 50%); }
-            100% { clip-path: polygon(50% 50%, 50% 0%, 100% 0%, 100% 100%, 0% 100%, 0% 0%, 50% 0%); }
+            0%    { clip-path: polygon(50% 50%, 50% 0%,   50% 0%,   50% 0%,    50% 0%,    50% 0%,  50% 0%);   }
+            12.5% { clip-path: polygon(50% 50%, 50% 0%,  100% 0%,  100% 0%,  100% 0%,   100% 0%,  100% 0%);  }
+            25%   { clip-path: polygon(50% 50%, 50% 0%,  100% 0%,  100% 50%, 100% 50%,  100% 50%, 100% 50%); }
+            37.5% { clip-path: polygon(50% 50%, 50% 0%,  100% 0%,  100% 100%, 100% 100%, 100% 100%, 100% 100%); }
+            50%   { clip-path: polygon(50% 50%, 50% 0%,  100% 0%,  100% 100%, 50% 100%,  50% 100%, 50% 100%); }
+            62.5% { clip-path: polygon(50% 50%, 50% 0%,  100% 0%,  100% 100%, 0% 100%,   0% 100%,  0% 100%);  }
+            75%   { clip-path: polygon(50% 50%, 50% 0%,  100% 0%,  100% 100%, 0% 100%,   0% 50%,   0% 50%);   }
+            87.5% { clip-path: polygon(50% 50%, 50% 0%,  100% 0%,  100% 100%, 0% 100%,   0% 0%,    0% 0%);    }
+            100%  { clip-path: polygon(50% 50%, 50% 0%,  100% 0%,  100% 100%, 0% 100%,   0% 0%,    50% 0%);   }
         }
 
         body {
-            background: var(--bg);
+            background-image: url("https://media.tenor.com/wIbOLo3S7dgAAAAM/toys-r-us-geoffrey-the-giraffe.gif");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
             color: var(--text);
             font-family: var(--sans);
         }
@@ -136,10 +143,7 @@
     <nav>
         <span style="color: var(--text); font-size: 14px;">my version (wip)</span>
         <ul>
-            <li><a href="about.html">about</a></li>
-            <li><a href="projects.html">projects</a></li>
-            <li><a href="contact.html">contact</a></li>
-            <li><a href="aspirational.html">aspirational</a></li>
+            <li><a href="index.html">Exit</a></li>
         </ul>
     </nav>
 
