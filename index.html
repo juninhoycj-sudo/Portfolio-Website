@@ -85,6 +85,11 @@
             display: inline-block;
             width: 2px;
             height: 1em;
+            background: #4ade80;
+            animation: blink 0.75s step-end infinite;
+        }
+        @keyframes blink {
+            50% { opacity: 0; }
         }
     </style>
 </head>
@@ -96,9 +101,45 @@
     </nav>
 
     <main>
-        <h1>hello. i'm juninho</h1>
-        <p>i'm a developer</p>
+        <h1 id="heading">hello. i'm juninho<span class="cursor"></span></h1>
+        <p>i'm <span id="role"></span>, clearly.</p>
     </main>
 
+    <script>
+        const heading = document.getElementById('heading');
+
+        heading.addEventListener('click', function(){
+            heading.style.color = "blue";
+             });
+
+        const e1 = document.getElementById('role');
+        const words = ["a developer", "a builder", "in love", "gay"];
+        let wordIndex = 0, charIndex = 0, deleting = false;
+
+        function typeRole() {
+            const word = words[wordIndex];
+            if (!deleting) {
+                e1.textContent = word.slice(0, charIndex++);
+                if (charIndex > word.length) {
+                    deleting = true;
+                    setTimeout(typeRole, 100);
+                    return;
+                }
+            }
+            else {
+                e1.textContent = word.slice(0, charIndex--);
+                if (charIndex < 0) {
+                    deleting = false;
+                    wordIndex = (wordIndex + 1) % words.length;
+                    charIndex = 0;
+                    setTimeout(typeRole, 100);
+                    return;
+                }
+            }
+
+            setTimeout(typeRole, deleting ? 40 : 80)
+        }
+        typeRole();
+    </script>
 </body>
 </html>
