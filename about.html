@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>About — Juninho</title>
+<link rel="stylesheet" href="styles.css"/>
+<style>
+  /* ── HERO (full-screen, placeholder for interactive bg) ── */
+  .about-hero {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .about-h1 {
+    font-size: clamp(3rem, 8vw, 6rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+  }
+
+  .about-cursor {
+    display: inline-block;
+    width: 3px;
+    height: 0.82em;
+    background: var(--accent);
+    vertical-align: middle;
+    margin-left: 6px;
+    animation: blink 0.75s step-end infinite;
+    transition: opacity 0.5s ease;
+  }
+
+  @keyframes blink { 50% { opacity: 0; } }
+
+  /* Scroll hint — fades in after typing, bounces gently */
+  .scroll-hint {
+    position: absolute;
+    bottom: 2.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.35rem;
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    opacity: 0;
+    transition: opacity 0.6s ease;
+  }
+
+  .scroll-hint.visible {
+    opacity: 0.45;
+    animation: hint-bob 2.4s ease-in-out infinite;
+  }
+
+  .scroll-hint svg {
+    width: 15px; height: 15px;
+    stroke: currentColor; fill: none;
+    stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+  }
+
+  @keyframes hint-bob {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50%       { transform: translateX(-50%) translateY(6px); }
+  }
+
+  /* ── CONTENT SECTION ── */
+  .about-content {
+    max-width: 1040px;
+    margin: 0 auto;
+    padding: 5rem 2.5rem 6rem;
+  }
+
+  .about-content-header {
+    margin-bottom: 3rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .about-content-header h2 {
+    font-size: 1.5rem;
+    margin-bottom: 0.25rem;
+  }
+
+  /* Two-column layout */
+  .about-columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+
+  .about-col {
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+  }
+
+  .col-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--accent2);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+
+  .about-bio p {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.85;
+    color: var(--muted);
+  }
+
+  .about-content .skills-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+  }
+
+  .about-content .skill-group {
+    padding: 0.9rem 1rem;
+  }
+
+  .about-content .terminal {
+    margin-top: 0;
+    font-size: 12px;
+    padding: 1rem 1.25rem;
+  }
+
+  .about-content .terminal-bar { margin-bottom: 0.65rem; }
+
+  /* Scroll-reveal: items start hidden and slide up when in view */
+  .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.55s ease, transform 0.55s ease;
+  }
+
+  .reveal.in-view {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (max-width: 740px) {
+    .about-columns { grid-template-columns: 1fr; }
+    .about-content { padding: 4rem 1.25rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="aspirational.html">jooniee.dev</a>
+  <ul class="nav-links">
+    <li><a href="about.html" class="active">About</a></li>
+    <li><a href="projects.html">Projects</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="about-hero">
+  <h1 class="about-h1">
+    <span id="about-typed"></span><span class="about-cursor" id="about-cursor"></span>
+  </h1>
+
+  <div class="scroll-hint" id="scroll-hint">
+    <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+    scroll
+  </div>
+</section>
+
+<!-- ── CONTENT ── -->
+<section class="about-content">
+
+  <div class="about-content-header reveal">
+    <p class="section-label">01 — about</p>
+    <h2>Who I am</h2>
+  </div>
+
+  <div class="about-columns">
+
+    <div class="about-col">
+
+      <div class="about-bio reveal" style="transition-delay: 0.05s">
+        <div class="col-label">Background</div>
+        <p>
+          Hey there! I'm Juninho, a Computer Science undergrad at Nanyang Technological University.
+          I'm passionate about AI-driven technologies and applying them in my work or projects.
+        </p>
+      </div>
+
+      <div class="reveal" style="transition-delay: 0.1s">
+        <div class="col-label">By the numbers</div>
+        <div class="stat-grid">
+          <div class="stat">
+            <div class="stat-num">N+</div>
+            <div class="stat-label">Years experience</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num">N+</div>
+            <div class="stat-label">Projects shipped</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num">N</div>
+            <div class="stat-label">GitHub stars</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num">N</div>
+            <div class="stat-label">OSS contributions</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="about-col">
+
+      <div class="reveal" style="transition-delay: 0.08s">
+        <div class="col-label">Stack</div>
+        <div class="skills-grid">
+          <div class="skill-group">
+            <div class="skill-group-title">Languages</div>
+            <div class="tags">
+              <span class="tag">Language 1</span>
+              <span class="tag">Language 2</span>
+              <span class="tag">Language 3</span>
+            </div>
+          </div>
+          <div class="skill-group">
+            <div class="skill-group-title">Frameworks</div>
+            <div class="tags">
+              <span class="tag">Framework 1</span>
+              <span class="tag">Framework 2</span>
+              <span class="tag">Framework 3</span>
+            </div>
+          </div>
+          <div class="skill-group">
+            <div class="skill-group-title">Tools & Infra</div>
+            <div class="tags">
+              <span class="tag">Tool 1</span>
+              <span class="tag">Tool 2</span>
+              <span class="tag">Tool 3</span>
+            </div>
+          </div>
+          <div class="skill-group">
+            <div class="skill-group-title">Other</div>
+            <div class="tags">
+              <span class="tag">Skill 1</span>
+              <span class="tag">Skill 2</span>
+              <span class="tag">Skill 3</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="terminal reveal" style="transition-delay: 0.15s">
+        <div class="terminal-bar">
+          <span class="dot dot-r"></span>
+          <span class="dot dot-y"></span>
+          <span class="dot dot-g"></span>
+        </div>
+        <div class="terminal-line"><span class="prompt">~</span> <span class="cmd">whoami</span></div>
+        <div class="terminal-line"><span class="out">juninho — cs undergrad, AI enthusiast</span></div>
+        <div class="terminal-line gap"><span class="prompt">~</span> <span class="cmd">cat interests.txt</span></div>
+        <div class="terminal-line"><span class="out">AI/ML · systems · creative coding</span></div>
+        <div class="terminal-line gap"><span class="prompt">~</span> <span class="cmd">echo $STATUS</span></div>
+        <div class="terminal-line"><span class="out" style="color:var(--accent)">open to opportunities ✓</span></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<script>
+(function () {
+  /* ── Typewriter ── */
+  const el     = document.getElementById('about-typed');
+  const cursor = document.getElementById('about-cursor');
+  const hint   = document.getElementById('scroll-hint');
+  const phrase = "About Me";
+  let i = 0;
+
+  function type() {
+    if (i < phrase.length) {
+      el.textContent += phrase[i++];
+      setTimeout(type, 38 + Math.random() * 18);
+    } else {
+      setTimeout(() => {
+        cursor.style.opacity = '0';
+        hint.classList.add('visible');
+      }, 700);
+    }
+  }
+
+  setTimeout(type, 120);
+
+  /* ── Scroll-reveal ── */
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in-view');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+})();
+</script>
+<script src="transitions.js"></script>
+</body>
+</html>

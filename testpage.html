@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>jooniee.dev</title>
+    <style>
+        :root {
+            --bg: navy;
+            --text: #e8eaf0;
+            --muted: #7a7f8e;
+            --accent: #4ade80;
+        }
+        main{
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+        }
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: sans-serif;
+        }
+
+        h1{
+            border: 1px solid red;
+            padding: 20px;
+            margin: 40px;
+            font-size: 7cqh;
+            font-weight: 900;
+        }
+
+        p{
+            color: var(--text);
+            font-size: 1.2rem;
+        }
+
+        a{
+            color: var(--muted);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+        a:hover {
+            color: pink;
+        }
+        nav{
+            position: sticky;
+            top: 0; left: 0; right: 0;
+            height: 56px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 2rem;
+            background: #0d0f12;
+        }
+        .cursor {
+            display: inline-block;
+            width: 2px; height: 1em;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="testpage.html">Test here</a>
+    </nav>
+
+    <main>
+        <h1>hello. i'm juninho</h1>
+        <p>i'm a developer</p>
+    </main>
+</body>
+</html>
