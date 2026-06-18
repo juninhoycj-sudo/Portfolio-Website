@@ -6,22 +6,23 @@
 <title>Juninho</title>
 <link rel="stylesheet" href="styles.css"/>
 <style>
+  html { scroll-behavior: smooth; scroll-snap-type: y proximity; }
+  section[id] { scroll-margin-top: 80px; }
+  .home-hero, .full-screen { scroll-snap-align: start; }
+
+  /* ── INTRO ── */
   #intro-bg {
-    position: fixed;
-    inset: 0;
+    position: fixed; inset: 0;
     background: var(--bg);
     z-index: 999;
-    transition: opacity 0.65s ease;
+    transition: opacity 0.4s ease;
     pointer-events: none;
   }
 
   #intro {
-    position: fixed;
-    inset: 0;
+    position: fixed; inset: 0;
     z-index: 1000;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: flex; align-items: center; justify-content: center;
     pointer-events: none;
   }
 
@@ -32,25 +33,17 @@
     line-height: 1.05;
     font-size: clamp(1.4rem, 4vw, 2.5rem);
     color: var(--text);
-    display: flex;
-    align-items: center;
-    gap: 0.5em;
+    display: flex; align-items: center; gap: 0.5em;
   }
 
-  .intro-prompt {
-    color: var(--muted);
-    user-select: none;
-    transition: opacity 0.18s ease;
-  }
-
+  .intro-prompt { color: var(--muted); user-select: none; transition: opacity 0.18s ease; }
   #typed { display: inline-block; }
 
   .intro-cursor {
     display: inline-block;
     width: 2px; height: 1em;
     background: var(--accent);
-    vertical-align: middle;
-    margin-left: 2px;
+    vertical-align: middle; margin-left: 2px;
     animation: blink 0.75s step-end infinite;
     transition: opacity 0.18s ease;
   }
@@ -58,48 +51,35 @@
   @keyframes blink { 50% { opacity: 0; } }
 
   .intro-skip {
-    position: fixed;
-    bottom: 2rem; right: 2rem;
-    font-family: var(--mono);
-    font-size: 11px;
-    color: var(--border2);
-    letter-spacing: 0.08em;
-    cursor: pointer;
-    border: none;
-    background: none;
-    transition: color 0.2s;
-    z-index: 1001;
+    position: fixed; bottom: 2rem; right: 2rem;
+    font-family: var(--mono); font-size: 11px;
+    color: var(--border2); letter-spacing: 0.08em;
+    cursor: pointer; border: none; background: none;
+    transition: color 0.2s; z-index: 1001;
   }
   .intro-skip:hover { color: var(--muted); }
 
+  /* ── HOME HERO ── */
   .home-hero {
     height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 1.1rem;
-    text-align: center;
-    padding: 0 2rem;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 1.1rem; text-align: center; padding: 0 2rem;
+    position: relative;
   }
 
   .home-hero h1 {
     font-size: clamp(2.5rem, 7vw, 5rem);
-    font-weight: 700;
-    letter-spacing: -0.03em;
-    line-height: 1.05;
-    color: var(--text);
-    opacity: 0;
+    font-weight: 700; letter-spacing: -0.03em;
+    line-height: 1.05; color: var(--text); opacity: 0;
   }
 
   .hero-role {
     font-family: var(--mono);
     font-size: clamp(0.95rem, 2.5vw, 1.4rem);
-    color: var(--muted);
-    opacity: 0;
+    color: var(--muted); opacity: 0;
     transform: translateY(10px);
-    display: flex;
-    align-items: center;
+    display: flex; align-items: center;
   }
 
   .role-text { color: var(--accent2); }
@@ -108,13 +88,125 @@
     display: inline-block;
     width: 2px; height: 1em;
     background: var(--accent2);
-    vertical-align: middle;
-    margin-left: 3px;
+    vertical-align: middle; margin-left: 3px;
     animation: blink 0.75s step-end infinite;
+  }
+
+  .scroll-hint {
+    position: absolute; bottom: 2.5rem; left: 50%;
+    transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 0.35rem;
+    font-family: var(--mono); font-size: 10px;
+    color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase;
+    text-decoration: none; opacity: 0; transition: opacity 0.6s ease;
+  }
+  .scroll-hint.visible { opacity: 0.4; animation: hint-bob 2.4s ease-in-out infinite; }
+  .scroll-hint svg { width: 15px; height: 15px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+  @keyframes hint-bob {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50%       { transform: translateX(-50%) translateY(6px); }
+  }
+
+  /* ── SHARED SECTION LAYOUT ── */
+  .full-screen {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-top: 1px solid var(--border);
+  }
+
+  .main-section {
+    width: 100%;
+    max-width: 1040px;
+    padding: 5rem 2.5rem;
+  }
+
+  .section-header {
+    margin-bottom: 2.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .section-header h2 { font-size: 1.5rem; margin-bottom: 0.25rem; }
+
+  /* ── SCROLL INDICATOR ── */
+  .scroll-indicator {
+    position: fixed;
+    right: 1.75rem;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 50;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+  }
+
+  .scroll-indicator-track {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 6px 0;
+  }
+
+  .scroll-indicator-track::before {
+    content: '';
+    position: absolute;
+    left: 50%; top: 0; bottom: 0;
+    width: 1px;
+    background: rgba(255,255,255,0.08);
+    transform: translateX(-50%);
+  }
+
+  .scroll-dot {
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.2);
+    margin: 10px 0;
+    position: relative; z-index: 1;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: block;
+  }
+
+  .scroll-dot.active {
+    background: var(--accent);
+    box-shadow: 0 0 8px var(--accent);
+    transform: scale(1.4);
+  }
+
+  /* ── ABOUT ── */
+  .about-columns { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
+  .about-col { display: flex; flex-direction: column; gap: 1.25rem; }
+
+  .col-label {
+    font-family: var(--mono); font-size: 10px;
+    color: var(--accent2); letter-spacing: 0.12em;
+    text-transform: uppercase; margin-bottom: 0.5rem;
+  }
+
+  .about-bio p { margin: 0; font-size: 14px; line-height: 1.85; color: var(--muted); }
+
+  .about-section .skills-grid { grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+  .about-section .skill-group { padding: 0.9rem 1rem; }
+  .about-section .terminal { margin-top: 0; font-size: 12px; padding: 1rem 1.25rem; }
+  .about-section .terminal-bar { margin-bottom: 0.65rem; }
+
+  /* ── REVEAL ── */
+  .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.55s ease, transform 0.55s ease; }
+  .reveal.in-view { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 740px) {
+    .about-columns { grid-template-columns: 1fr; }
+    .main-section { padding: 4rem 1.25rem; }
   }
 </style>
 </head>
 <body>
+
+<canvas id="bg-canvas" style="position:fixed;inset:0;z-index:-1;pointer-events:none;"></canvas>
 
 <div id="intro-bg"></div>
 <div id="intro">
@@ -126,34 +218,210 @@
 <button class="intro-skip" id="skip-btn">skip →</button>
 
 <nav>
-  <a class="nav-logo" href="index.html">jooniee.dev</a>
+  <a class="nav-logo" href="#hero">jooniee.dev</a>
   <ul class="nav-links">
-    <li><a href="about.html">about</a></li>
-    <li><a href="projects.html">projects</a></li>
-    <li><a href="contact.html">contact</a></li>
+    <li><a href="#about">about</a></li>
+    <li><a href="#projects">projects</a></li>
+    <li><a href="#contact">contact</a></li>
     <li><a href="test.html">playground</a></li>
   </ul>
 </nav>
 
-<main class="home-hero">
+<div class="scroll-indicator">
+  <div class="scroll-indicator-track">
+    <a href="#hero"     class="scroll-dot active" data-section="hero"></a>
+    <a href="#about"    class="scroll-dot"         data-section="about"></a>
+    <a href="#projects" class="scroll-dot"         data-section="projects"></a>
+    <a href="#contact"  class="scroll-dot"         data-section="contact"></a>
+  </div>
+</div>
+
+<!-- ── HOME HERO ── -->
+<section class="home-hero" id="hero">
   <h1 id="hero-name">hello, i'm juninho</h1>
   <div class="hero-role" id="hero-role">
     i'm a&nbsp;<span class="role-text" id="role"></span><span class="role-cursor"></span>
   </div>
-</main>
+  <a class="scroll-hint" id="scroll-hint" href="#about">
+    <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+    scroll
+  </a>
+</section>
+
+<!-- ── ABOUT ── -->
+<section class="full-screen" id="about">
+<div class="main-section about-section">
+  <div class="section-header reveal">
+    <p class="section-label">01 — about</p>
+    <h2>Who I am</h2>
+  </div>
+
+  <div class="about-columns">
+    <div class="about-col">
+
+      <div class="about-bio reveal" style="transition-delay:0.05s">
+        <div class="col-label">Background</div>
+        <p>
+          Hey there! I'm Juninho, a Computer Science undergrad at Nanyang Technological University.
+          I'm passionate about AI-driven technologies and applying them in my work or projects.
+        </p>
+      </div>
+
+      <div class="reveal" style="transition-delay:0.1s">
+        <div class="col-label">By the numbers</div>
+        <div class="stat-grid">
+          <div class="stat"><div class="stat-num">N+</div><div class="stat-label">Years experience</div></div>
+          <div class="stat"><div class="stat-num">N+</div><div class="stat-label">Projects shipped</div></div>
+          <div class="stat"><div class="stat-num">N</div><div class="stat-label">GitHub stars</div></div>
+          <div class="stat"><div class="stat-num">N</div><div class="stat-label">OSS contributions</div></div>
+        </div>
+      </div>
+
+    </div>
+    <div class="about-col">
+
+      <div class="reveal" style="transition-delay:0.08s">
+        <div class="col-label">Stack</div>
+        <div class="skills-grid">
+          <div class="skill-group">
+            <div class="skill-group-title">Languages</div>
+            <div class="tags">
+              <span class="tag">Language 1</span><span class="tag">Language 2</span><span class="tag">Language 3</span>
+            </div>
+          </div>
+          <div class="skill-group">
+            <div class="skill-group-title">Frameworks</div>
+            <div class="tags">
+              <span class="tag">Framework 1</span><span class="tag">Framework 2</span><span class="tag">Framework 3</span>
+            </div>
+          </div>
+          <div class="skill-group">
+            <div class="skill-group-title">Tools & Infra</div>
+            <div class="tags">
+              <span class="tag">Tool 1</span><span class="tag">Tool 2</span><span class="tag">Tool 3</span>
+            </div>
+          </div>
+          <div class="skill-group">
+            <div class="skill-group-title">Other</div>
+            <div class="tags">
+              <span class="tag">Skill 1</span><span class="tag">Skill 2</span><span class="tag">Skill 3</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="terminal reveal" style="transition-delay:0.15s">
+        <div class="terminal-bar">
+          <span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span>
+        </div>
+        <div class="terminal-line"><span class="prompt">~</span> <span class="cmd">whoami</span></div>
+        <div class="terminal-line"><span class="out">juninho — cs undergrad, AI enthusiast</span></div>
+        <div class="terminal-line gap"><span class="prompt">~</span> <span class="cmd">cat interests.txt</span></div>
+        <div class="terminal-line"><span class="out">AI/ML · systems · creative coding</span></div>
+        <div class="terminal-line gap"><span class="prompt">~</span> <span class="cmd">echo $STATUS</span></div>
+        <div class="terminal-line"><span class="out" style="color:var(--accent)">open to opportunities ✓</span></div>
+      </div>
+
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ── PROJECTS ── -->
+<section class="full-screen" id="projects">
+<div class="main-section">
+  <div class="section-header reveal">
+    <p class="section-label">02 — projects</p>
+    <h2>Selected work</h2>
+  </div>
+
+  <div class="project-list reveal" style="transition-delay:0.05s">
+
+    <a class="project-card" href="https://github.com/yourusername/project-one" target="_blank">
+      <div>
+        <div class="project-name">Project One</div>
+        <p class="project-desc">One or two sentences describing what it does, the problem it solves, and any notable scale or impact.</p>
+        <div class="tags" style="margin-top:10px">
+          <span class="tag">Tech 1</span><span class="tag">Tech 2</span><span class="tag">Tech 3</span>
+        </div>
+      </div>
+      <div class="project-meta">
+        <span class="project-lang"><span class="lang-dot" style="background:#dea584"></span>Language</span>
+        <span class="project-arrow">→</span>
+      </div>
+    </a>
+
+    <a class="project-card" href="https://github.com/yourusername/project-two" target="_blank">
+      <div>
+        <div class="project-name">Project Two</div>
+        <p class="project-desc">One or two sentences describing what it does, the problem it solves, and any notable scale or impact.</p>
+        <div class="tags" style="margin-top:10px">
+          <span class="tag">Tech 1</span><span class="tag">Tech 2</span>
+        </div>
+      </div>
+      <div class="project-meta">
+        <span class="project-lang"><span class="lang-dot" style="background:#00add8"></span>Language</span>
+        <span class="project-arrow">→</span>
+      </div>
+    </a>
+
+    <a class="project-card" href="https://github.com/yourusername/project-three" target="_blank">
+      <div>
+        <div class="project-name">Project Three</div>
+        <p class="project-desc">One or two sentences describing what it does, the problem it solves, and any notable scale or impact.</p>
+        <div class="tags" style="margin-top:10px">
+          <span class="tag">Tech 1</span><span class="tag">Tech 2</span>
+        </div>
+      </div>
+      <div class="project-meta">
+        <span class="project-lang"><span class="lang-dot" style="background:#3572a5"></span>Language</span>
+        <span class="project-arrow">→</span>
+      </div>
+    </a>
+
+  </div>
+</div>
+</section>
+
+<!-- ── CONTACT ── -->
+<section class="full-screen" id="contact">
+<div class="main-section">
+  <div class="reveal">
+    <div class="contact-inner">
+      <p class="section-label" style="margin-bottom:0.75rem">03 — contact</p>
+      <h2>Let's talk</h2>
+      <p>What you're open to — roles, freelance, collabs, etc. A sentence on response time is a nice touch.</p>
+      <div class="contact-links">
+        <a class="contact-link" href="mailto:juninhoycj@gmail.com">✉ Email</a>
+        <a class="contact-link" href="https://github.com/juninhoycj-sudo" target="_blank">⌥ GitHub</a>
+        <a class="contact-link" href="https://linkedin.com/in/juninho-yeu" target="_blank">↗ LinkedIn</a>
+        <a class="contact-link" href="/resume.pdf" target="_blank">↓ Resume</a>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<footer>// Juninho · 2025</footer>
 
 <script>
 (function () {
-  const phrase   = "hello, i'm juninho";
-  const typed    = document.getElementById('typed');
-  const cursor   = document.getElementById('cursor');
-  const prompt   = document.querySelector('.intro-prompt');
-  const introBg  = document.getElementById('intro-bg');
-  const intro    = document.getElementById('intro');
-  const skipBtn  = document.getElementById('skip-btn');
-  const heroName = document.getElementById('hero-name');
-  const heroRole = document.getElementById('hero-role');
-  const roleEl   = document.getElementById('role');
+  history.scrollRestoration = 'manual';
+  window.scrollTo(0, 0);
+  document.documentElement.style.overflow = 'hidden';
+
+  const phrase     = "hello, i'm juninho";
+  const typed      = document.getElementById('typed');
+  const cursor     = document.getElementById('cursor');
+  const prompt     = document.querySelector('.intro-prompt');
+  const introBg    = document.getElementById('intro-bg');
+  const intro      = document.getElementById('intro');
+  const skipBtn    = document.getElementById('skip-btn');
+  const heroName   = document.getElementById('hero-name');
+  const heroRole   = document.getElementById('hero-role');
+  const roleEl     = document.getElementById('role');
+  const roleCursor = document.querySelector('.role-cursor');
+  const scrollHint = document.getElementById('scroll-hint');
 
   const roles = [
     "software engineer",
@@ -161,6 +429,8 @@
     "problem solver",
     "builder of things",
   ];
+
+  const roleColors = ['#4ade80','#22d3ee','#f472b6','#fb923c','#a78bfa','#facc15'];
 
   let rIdx = 0, cIdx = 0, deleting = false;
 
@@ -178,6 +448,9 @@
       if (cIdx === 0) {
         deleting = false;
         rIdx = (rIdx + 1) % roles.length;
+        const nextColor = roleColors[Math.floor(Math.random() * roleColors.length)];
+        roleEl.style.color = nextColor;
+        roleCursor.style.background = nextColor;
         setTimeout(typeRole, 380);
         return;
       }
@@ -189,7 +462,11 @@
     heroRole.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
     heroRole.style.opacity    = '1';
     heroRole.style.transform  = 'translateY(0)';
+    const initColor = roleColors[Math.floor(Math.random() * roleColors.length)];
+    roleEl.style.color = initColor;
+    roleCursor.style.background = initColor;
     setTimeout(typeRole, 200);
+    setTimeout(() => scrollHint.classList.add('visible'), 1200);
   }
 
   function dismiss() {
@@ -201,18 +478,12 @@
       const fromRect = typed.getBoundingClientRect();
       const toRect   = heroName.getBoundingClientRect();
 
-      const fromCX = fromRect.left + fromRect.width  / 2;
-      const fromCY = fromRect.top  + fromRect.height / 2;
-      const toCX   = toRect.left   + toRect.width    / 2;
-      const toCY   = toRect.top    + toRect.height   / 2;
-
-      const dx    = toCX - fromCX;
-      const dy    = toCY - fromCY;
+      const dx    = (toRect.left + toRect.width  / 2) - (fromRect.left + fromRect.width  / 2);
+      const dy    = (toRect.top  + toRect.height / 2) - (fromRect.top  + fromRect.height / 2);
       const scale = toRect.height / fromRect.height;
 
-      introBg.style.opacity = '0';
-
-      typed.style.transition      = 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+      introBg.style.opacity       = '0';
+      typed.style.transition      = 'transform 0.4s cubic-bezier(0.4, 0, 0.2, 1)';
       typed.style.transformOrigin = '50% 50%';
       typed.style.transform       = `translate(${dx}px, ${dy}px) scale(${scale})`;
 
@@ -221,20 +492,23 @@
         requestAnimationFrame(() => {
           introBg.remove();
           intro.remove();
+          document.documentElement.style.overflow = '';
           setTimeout(revealRole, 80);
         });
-      }, 620);
-    }, 180);
+      }, 420);
+    }, 100);
   }
 
   function skipAll() {
     skipBtn.remove();
     introBg.remove();
     intro.remove();
+    document.documentElement.style.overflow = '';
     heroName.style.opacity   = '1';
     heroRole.style.opacity   = '1';
     heroRole.style.transform = 'translateY(0)';
     typeRole();
+    setTimeout(() => scrollHint.classList.add('visible'), 1200);
   }
 
   skipBtn.addEventListener('click', skipAll);
@@ -243,15 +517,121 @@
   function type() {
     if (i < phrase.length) {
       typed.textContent += phrase[i++];
-      setTimeout(type, 55 + Math.random() * 55);
+      setTimeout(type, 35 + Math.random() * 30);
     } else {
-      setTimeout(dismiss, 850);
+      setTimeout(dismiss, 500);
     }
   }
 
-  setTimeout(type, 400);
+  setTimeout(type, 200);
+
+  /* ── Scroll reveal ── */
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in-view');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  /* ── Scroll indicator ── */
+  const dots = document.querySelectorAll('.scroll-dot');
+  const sectionObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        dots.forEach(d => d.classList.remove('active'));
+        const dot = document.querySelector(`.scroll-dot[data-section="${entry.target.id}"]`);
+        if (dot) dot.classList.add('active');
+      }
+    });
+  }, { threshold: 0.5 });
+
+  ['hero', 'about', 'projects', 'contact'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) sectionObserver.observe(el);
+  });
 })();
 </script>
 <script src="transitions.js"></script>
+<script>
+(function () {
+  const canvas = document.getElementById('bg-canvas');
+  const ctx    = canvas.getContext('2d');
+
+  function resize() {
+    canvas.width  = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  const COLORS = ['#4ade80','#22d3ee','#a78bfa','#f472b6','#fb923c'];
+  const mouse  = { x: -9999, y: -9999 };
+  window.addEventListener('mousemove', e => { mouse.x = e.clientX; mouse.y = e.clientY; });
+
+  const orbs = Array.from({ length: 15 }, () => {
+    const baseR = 35 + Math.random() * 55;
+    return {
+      x: Math.random() * window.innerWidth,
+      y: Math.random() * window.innerHeight,
+      vx: (Math.random() - 0.5) * 0.35,
+      vy: (Math.random() - 0.5) * 0.35,
+      baseR, r: baseR,
+      color: COLORS[Math.floor(Math.random() * COLORS.length)],
+      baseOpacity: 0.055 + Math.random() * 0.07,
+      opacity:     0.055 + Math.random() * 0.07,
+      phase: Math.random() * Math.PI * 2,
+    };
+  });
+
+  window.addEventListener('scroll', () => {
+    canvas.style.opacity = Math.max(0, 1 - window.scrollY / window.innerHeight);
+  });
+
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    const t = Date.now() * 0.001;
+
+    for (const orb of orbs) {
+      orb.x += orb.vx;
+      orb.y += orb.vy;
+
+      if (orb.x < -orb.baseR)                 orb.x = canvas.width  + orb.baseR;
+      if (orb.x >  canvas.width  + orb.baseR) orb.x = -orb.baseR;
+      if (orb.y < -orb.baseR)                 orb.y = canvas.height + orb.baseR;
+      if (orb.y >  canvas.height + orb.baseR) orb.y = -orb.baseR;
+
+      const prox = Math.max(0, 1 - Math.hypot(mouse.x - orb.x, mouse.y - orb.y) / 160);
+
+      const targetR       = orb.baseR * (1 + prox * 1.6 + Math.sin(t + orb.phase) * 0.04);
+      const targetOpacity = orb.baseOpacity * (1 + Math.sin(t * 0.7 + orb.phase) * 0.2) + prox * 0.28;
+
+      orb.r       += (targetR       - orb.r)       * 0.06;
+      orb.opacity += (targetOpacity - orb.opacity) * 0.06;
+
+      const g = ctx.createRadialGradient(orb.x, orb.y, 0, orb.x, orb.y, orb.r);
+      g.addColorStop(0, orb.color);
+      g.addColorStop(1, 'transparent');
+
+      ctx.save();
+      ctx.globalAlpha = orb.opacity;
+      ctx.shadowBlur  = 40;
+      ctx.shadowColor = orb.color;
+      ctx.fillStyle   = g;
+      ctx.beginPath();
+      ctx.arc(orb.x, orb.y, orb.r, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+    }
+
+    requestAnimationFrame(draw);
+  }
+
+  draw();
+})();
+</script>
 </body>
 </html>
