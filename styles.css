@@ -18,8 +18,8 @@ body {
   background: var(--bg);
   color: var(--text);
   font-family: var(--sans);
-  font-size: 15px;
-  line-height: 1.7;
+  font-size: 17px;
+  line-height: 1.75;
   min-height: 100vh;
   transition: opacity 0.25s ease;
 }
@@ -78,6 +78,7 @@ nav {
   text-shadow: 0 0 12px rgba(232, 234, 240, 0.5);
 }
 
+
 /* BUTTONS */
 .btn {
   display: inline-flex;
@@ -110,22 +111,22 @@ nav {
 
 .section-label {
   font-family: var(--mono);
-  font-size: 11px;
+  font-size: 13px;
   color: var(--accent);
   letter-spacing: 0.14em;
   text-transform: uppercase;
   margin-bottom: 0.5rem;
 }
 
-h2 { font-size: 1.8rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 1.2rem; color: var(--text); }
-p { color: var(--muted); line-height: 1.8; margin-bottom: 1rem; }
+h2 { font-size: 2rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 1.2rem; color: var(--text); }
+p { color: var(--muted); line-height: 1.85; margin-bottom: 1rem; }
 
 .tags { display: flex; flex-wrap: wrap; gap: 6px; }
-.tag { background: var(--bg3); border: 1px solid var(--border); color: var(--muted); font-family: var(--mono); font-size: 11px; padding: 3px 10px; border-radius: 3px; letter-spacing: 0.03em; }
+.tag { background: var(--bg3); border: 1px solid var(--border); color: var(--muted); font-family: var(--mono); font-size: 13px; padding: 4px 12px; border-radius: 3px; letter-spacing: 0.03em; }
 
 .divider { border: none; border-top: 1px solid var(--border); margin: 3.5rem 0; }
 
-footer { text-align: center; padding: 2rem; font-family: var(--mono); font-size: 11px; color: var(--border2); border-top: 1px solid var(--border); letter-spacing: 0.06em; }
+footer { text-align: center; padding: 2rem; font-family: var(--mono); font-size: 13px; color: var(--muted); border-top: 1px solid var(--border); letter-spacing: 0.06em; }
 
 /* ABOUT */
 .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; margin-bottom: 3rem; }
@@ -141,7 +142,7 @@ footer { text-align: center; padding: 2rem; font-family: var(--mono); font-size:
 /* SKILLS */
 .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; }
 .skill-group { background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 1.2rem; }
-.skill-group-title { font-family: var(--mono); font-size: 11px; color: var(--accent2); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.75rem; }
+.skill-group-title { font-family: var(--mono); font-size: 13px; color: var(--accent2); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.75rem; }
 
 /* TERMINAL */
 .terminal {
@@ -163,8 +164,8 @@ footer { text-align: center; padding: 2rem; font-family: var(--mono); font-size:
 .project-list { display: flex; flex-direction: column; gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
 .project-card { background: var(--bg2); padding: 1.5rem 1.75rem; display: grid; grid-template-columns: 1fr auto; gap: 1rem; align-items: start; transition: background 0.15s; text-decoration: none; }
 .project-card:hover { background: var(--bg3); }
-.project-name { font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
-.project-desc { font-size: 13px; color: var(--muted); margin: 0; line-height: 1.6; }
+.project-name { font-size: 17px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
+.project-desc { font-size: 15px; color: var(--muted); margin: 0; line-height: 1.65; }
 .project-meta { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; }
 .lang-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 5px; }
 .project-lang { font-family: var(--mono); font-size: 11px; color: var(--muted); white-space: nowrap; }
@@ -179,20 +180,85 @@ footer { text-align: center; padding: 2rem; font-family: var(--mono); font-size:
 .contact-link { display: inline-flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 12px; color: var(--muted); text-decoration: none; border: 1px solid var(--border); padding: 9px 18px; border-radius: 4px; letter-spacing: 0.06em; text-transform: uppercase; transition: all 0.2s; }
 .contact-link:hover { color: var(--text); border-color: var(--border2); }
 
+/* HAMBURGER */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  z-index: 101;
+}
+
+.hamburger span {
+  display: block;
+  width: 22px;
+  height: 1.5px;
+  background: var(--text);
+  border-radius: 2px;
+  transition: all 0.25s ease;
+}
+
+.hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+/* MOBILE MENU */
+.mobile-menu {
+  position: fixed;
+  inset: 0;
+  background: var(--bg);
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.mobile-menu.open {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.mobile-nav {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2.5rem;
+}
+
+.mobile-nav a {
+  font-family: var(--mono);
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--muted);
+  text-decoration: none;
+  letter-spacing: -0.02em;
+  transition: color 0.2s;
+}
+
+.mobile-nav a:hover { color: var(--text); }
+
+.mobile-close {
+  position: absolute;
+  top: 1.4rem; right: 1.5rem;
+  background: none; border: none;
+  color: var(--muted); font-size: 1.4rem;
+  cursor: pointer; line-height: 1;
+  transition: color 0.2s;
+}
+.mobile-close:hover { color: var(--text); }
+
 @media (max-width: 640px) {
-  nav {
-    display: flex;
-    justify-content: space-between;
-    padding: 0 1rem;
-  }
-  .nav-links {
-    gap: 0.75rem;
-  }
-  .nav-links a {
-    font-size: 11px;
-    letter-spacing: 0;
-    text-transform: none;
-  }
+  nav { padding: 0 1rem; }
+  .nav-links { display: none; }
+  .hamburger { display: flex; }
   .about-grid { grid-template-columns: 1fr; }
 }
 
