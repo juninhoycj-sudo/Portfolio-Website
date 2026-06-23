@@ -6,9 +6,8 @@
 <title>Juninho</title>
 <link rel="stylesheet" href="styles.css"/>
 <style>
-  html { scroll-behavior: smooth; scroll-snap-type: y proximity; }
+  html { scroll-behavior: smooth; }
   section[id] { scroll-margin-top: 80px; }
-  .home-hero, .full-screen { scroll-snap-align: start; }
 
   /* ── INTRO ── */
   #intro-bg {
@@ -187,21 +186,149 @@
   }
 
   /* ── ABOUT ── */
-  .about-columns { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
-  .about-col { display: flex; flex-direction: column; gap: 1.25rem; }
+  .about-rows { display: flex; flex-direction: column; gap: 2.5rem; }
 
   .col-label {
     font-family: var(--mono); font-size: 13px;
     color: var(--accent2); letter-spacing: 0.12em;
-    text-transform: uppercase; margin-bottom: 0.5rem;
+    text-transform: uppercase; margin-bottom: 0.6rem;
   }
 
-  .about-bio p { margin: 0; font-size: 16px; line-height: 1.9; color: var(--muted); }
+  .about-row p {
+    margin: 0 0 0.75rem;
+    font-size: 16px; line-height: 1.9;
+    color: var(--muted); max-width: 700px;
+  }
+  .about-row p:last-of-type { margin-bottom: 0; }
 
-  .about-section .skills-grid { grid-template-columns: 1fr 1fr; gap: 0.75rem; }
-  .about-section .skill-group { padding: 0.9rem 1rem; }
-  .about-section .terminal { margin-top: 0; font-size: 12px; padding: 1rem 1.25rem; }
-  .about-section .terminal-bar { margin-bottom: 0.65rem; }
+  .status-box {
+    display: inline-flex; flex-direction: column; gap: 0.45rem;
+    background: var(--bg2); border: 1px solid var(--border);
+    border-radius: 8px; padding: 1rem 1.25rem; margin-top: 0.25rem;
+  }
+  .status-item { display: flex; align-items: baseline; gap: 1rem; font-family: var(--mono); font-size: 12px; }
+  .status-key  { color: var(--muted); letter-spacing: 0.06em; min-width: 72px; }
+  .status-val  { color: var(--text); }
+  .status-active { color: var(--accent); }
+
+  /* ── PROJECTS ── */
+  .proj-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .proj-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+    transition: border-color 0.2s;
+    cursor: pointer;
+  }
+  .proj-card:hover { border-color: var(--border2); }
+
+  .proj-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .proj-name {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text);
+    margin: 0;
+  }
+
+  .proj-meta-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 8px;
+    flex-shrink: 0;
+  }
+
+  .proj-date {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.06em;
+  }
+
+  .proj-github {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--muted);
+    text-decoration: none;
+    border: 1px solid var(--border);
+    padding: 7px 14px;
+    border-radius: 4px;
+    white-space: nowrap;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .proj-github:hover { color: var(--text); border-color: var(--border2); }
+  .proj-github svg { width: 14px; height: 14px; flex-shrink: 0; }
+
+  .proj-desc {
+    font-size: 15px;
+    line-height: 1.75;
+    color: var(--muted);
+    margin: 0;
+  }
+
+  .proj-reflect-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    background: none;
+    border: none;
+    color: var(--muted);
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+    padding: 0;
+    width: 100%;
+    transition: color 0.2s;
+  }
+  .proj-reflect-toggle:hover { color: var(--text); }
+
+  .proj-chevron {
+    width: 14px; height: 14px;
+    stroke: currentColor; fill: none;
+    stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+    transition: transform 0.25s ease;
+    flex-shrink: 0;
+  }
+  .proj-reflect-toggle[aria-expanded="true"] .proj-chevron { transform: rotate(180deg); }
+
+  .proj-reflect {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease, padding-top 0.35s ease, border-color 0s 0.35s;
+    border-top: 1px solid transparent;
+    padding-top: 0;
+    font-size: 14px;
+    line-height: 1.8;
+    color: var(--muted);
+  }
+  .proj-reflect.open {
+    max-height: 600px;
+    border-top-color: var(--border);
+    padding-top: 0.9rem;
+    transition: max-height 0.35s ease, padding-top 0.35s ease, border-color 0s;
+  }
+  .proj-reflect p { margin: 0; }
 
   /* ── REVEAL ── */
   .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.55s ease, transform 0.55s ease; }
@@ -212,11 +339,68 @@
     .main-section { padding: 2rem 1.25rem; }
     .scroll-indicator { display: none; }
   }
+
+  /* ── SOCIAL BUBBLES ── */
+  .social-bubble {
+    position: fixed;
+    left: 0; top: 0;
+    width: 52px; height: 52px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--muted);
+    text-decoration: none;
+    z-index: 20;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    transition: background 0.25s, border-color 0.25s, color 0.25s, box-shadow 0.25s;
+    will-change: transform;
+  }
+
+  .social-bubble svg {
+    width: 22px; height: 22px;
+    pointer-events: none;
+    flex-shrink: 0;
+  }
+
+  .social-bubble:hover {
+    background: rgba(74,222,128,0.12);
+    border-color: var(--accent);
+    color: var(--accent);
+    box-shadow: 0 0 20px rgba(74,222,128,0.22);
+  }
+
+
+  @media (max-width: 740px) { .social-bubble { width: 44px; height: 44px; } }
+
+  /* extra bottom padding so bubbles have room inside the box */
+  #contact .contact-inner { padding-bottom: calc(2.5rem + 88px); }
 </style>
 </head>
 <body>
 
 <canvas id="bg-canvas" style="position:fixed;inset:0;z-index:-1;pointer-events:none;"></canvas>
+
+<!-- Floating social bubbles -->
+<a class="social-bubble" href="https://github.com/juninhoycj-sudo" target="_blank" aria-label="GitHub">
+  <svg viewBox="0 0 24 24" fill="currentColor">
+    <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
+  </svg>
+</a>
+<a class="social-bubble" href="https://linkedin.com/in/juninho-yeu" target="_blank" aria-label="LinkedIn">
+  <svg viewBox="0 0 24 24" fill="currentColor">
+    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+  </svg>
+</a>
+<a class="social-bubble" href="mailto:juninhoycj@gmail.com" aria-label="Email">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+    <polyline points="22,6 12,13 2,6"/>
+  </svg>
+</a>
 
 <div id="intro-bg"></div>
 <div id="intro">
@@ -279,74 +463,51 @@
     <h2>Who am I?</h2>
   </div>
 
-  <div class="about-columns">
-    <div class="about-col">
+  <div class="about-rows">
 
-      <div class="about-bio reveal" style="transition-delay:0.05s">
-        <div class="col-label">Background</div>
-        <p>
-          Hey there! I'm Juninho, a Computer Science undergrad at Nanyang Technological University.
-          I'm passionate about AI-driven technologies and applying them in my work or projects.
-        </p>
-      </div>
-
-      <div class="reveal" style="transition-delay:0.1s">
-        <div class="col-label">By the numbers</div>
-        <div class="stat-grid">
-          <div class="stat"><div class="stat-num">N+</div><div class="stat-label">Years experience</div></div>
-          <div class="stat"><div class="stat-num">N+</div><div class="stat-label">Projects shipped</div></div>
-          <div class="stat"><div class="stat-num">N</div><div class="stat-label">GitHub stars</div></div>
-          <div class="stat"><div class="stat-num">N</div><div class="stat-label">OSS contributions</div></div>
-        </div>
-      </div>
-
-      
+    <div class="about-row reveal" style="transition-delay:0.05s">
+      <div class="col-label">Background</div>
+      <p>
+        Hey there! I'm Juninho, a Computer Science undergrad at Nanyang Technological University.
+        I'm passionate about AI-driven technologies and applying them in my work or projects.
+      </p>
+      <p>
+        I became very interested in computers from a young age, always playing games. This interest only grew stronger when I went to polytechnic
+        and had a chance to explore and do hands-on projects with real goals. Ever since then, it's been a dream to pursue a career in tech and leave a mark on the world.
+      </p>
     </div>
-    <div class="about-col">
 
-      <div class="reveal" style="transition-delay:0.08s">
-        <div class="col-label">Stack</div>
-        <div class="skills-grid">
-          <div class="skill-group">
-            <div class="skill-group-title">Languages</div>
-            <div class="tags">
-              <span class="tag">Language 1</span><span class="tag">Language 2</span><span class="tag">Language 3</span>
-            </div>
-          </div>
-          <div class="skill-group">
-            <div class="skill-group-title">Frameworks</div>
-            <div class="tags">
-              <span class="tag">Framework 1</span><span class="tag">Framework 2</span><span class="tag">Framework 3</span>
-            </div>
-          </div>
-          <div class="skill-group">
-            <div class="skill-group-title">Tools & Infra</div>
-            <div class="tags">
-              <span class="tag">Tool 1</span><span class="tag">Tool 2</span><span class="tag">Tool 3</span>
-            </div>
-          </div>
-          <div class="skill-group">
-            <div class="skill-group-title">Other</div>
-            <div class="tags">
-              <span class="tag">Skill 1</span><span class="tag">Skill 2</span><span class="tag">Skill 3</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="terminal reveal" style="transition-delay:0.15s">
-        <div class="terminal-bar">
-          <span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span>
-        </div>
-        <div class="terminal-line"><span class="prompt">~</span> <span class="cmd">whoami</span></div>
-        <div class="terminal-line"><span class="out">juninho — cs undergrad, AI enthusiast</span></div>
-        <div class="terminal-line gap"><span class="prompt">~</span> <span class="cmd">cat interests.txt</span></div>
-        <div class="terminal-line"><span class="out">AI/ML · systems · creative coding</span></div>
-        <div class="terminal-line gap"><span class="prompt">~</span> <span class="cmd">echo $STATUS</span></div>
-        <div class="terminal-line"><span class="out" style="color:var(--accent)">open to opportunities ✓</span></div>
-      </div>
-
+    <div class="about-row reveal" style="transition-delay:0.1s">
+      <div class="col-label">Looking Ahead</div>
+      <p>
+        The industry is rapidly evolving with the advancement of AI and I see it as an amazing and exciting shift. Gone are the days of spending countless
+        hours learning and fiddling with code. We can leave the gruelling work to AI agents and focus our energy on building bigger and better solutions.
+        I'm excited to dive in and see what I can build with all these new tools!
+      </p>
     </div>
+
+    <div class="about-row reveal" style="transition-delay:0.15s">
+      <div class="col-label">Current Status</div>
+      <div class="status-box">
+        <div class="status-item">
+          <span class="status-key">status</span>
+          <span class="status-val status-active">studying ●</span>
+        </div>
+        <div class="status-item">
+          <span class="status-key">role</span>
+          <span class="status-val">CS Undergrad · Year 2</span>
+        </div>
+        <div class="status-item">
+          <span class="status-key">place</span>
+          <span class="status-val">Nanyang Technological University</span>
+        </div>        
+        <div class="status-item">
+          <span class="status-key">open to</span>
+          <span class="status-val">internships · part-time roles</span>
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>
 </section>
@@ -356,52 +517,69 @@
 <div class="main-section">
   <div class="section-header reveal">
     <p class="section-label">02 — projects</p>
-    <h2>Selected work</h2>
+    <h2>My Past Work</h2>
   </div>
 
-  <div class="project-list reveal" style="transition-delay:0.05s">
+  <div class="proj-grid">
 
-    <a class="project-card" href="https://github.com/yourusername/project-one" target="_blank">
-      <div>
-        <div class="project-name">Project One</div>
-        <p class="project-desc">One or two sentences describing what it does, the problem it solves, and any notable scale or impact.</p>
-        <div class="tags" style="margin-top:10px">
-          <span class="tag">Tech 1</span><span class="tag">Tech 2</span><span class="tag">Tech 3</span>
+    <div class="proj-card reveal" style="transition-delay:0.05s">
+      <div class="proj-header">
+        <h3 class="proj-name">NTU Sports Matching</h3>
+        <div class="proj-meta-right">
+          <span class="proj-date">2024</span>
+          <a class="proj-github" href="https://github.com/yourusername/ntu-sports-matching" target="_blank">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+            GitHub
+          </a>
         </div>
       </div>
-      <div class="project-meta">
-        <span class="project-lang"><span class="lang-dot" style="background:#dea584"></span>Language</span>
-        <span class="project-arrow">→</span>
+      <p class="proj-desc">Describe what NTU Sports Matching does, the problem it solves, and any notable scale or impact.</p>
+      <button class="proj-reflect-toggle" aria-expanded="false">
+        <svg class="proj-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+        see more
+      </button>
+      <div class="proj-reflect">
+        <p>Your reflection on what you learned, what went well, and what you'd approach differently next time.</p>
       </div>
-    </a>
+    </div>
 
-    <a class="project-card" href="https://github.com/yourusername/project-two" target="_blank">
-      <div>
-        <div class="project-name">Project Two</div>
-        <p class="project-desc">One or two sentences describing what it does, the problem it solves, and any notable scale or impact.</p>
-        <div class="tags" style="margin-top:10px">
-          <span class="tag">Tech 1</span><span class="tag">Tech 2</span>
+    <div class="proj-card reveal" style="transition-delay:0.1s">
+      <div class="proj-header">
+        <h3 class="proj-name">VerifySG</h3>
+        <div class="proj-meta-right">
+          <span class="proj-date">2024</span>
+          <a class="proj-github" href="https://github.com/yourusername/verifysg" target="_blank">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+            GitHub
+          </a>
         </div>
       </div>
-      <div class="project-meta">
-        <span class="project-lang"><span class="lang-dot" style="background:#00add8"></span>Language</span>
-        <span class="project-arrow">→</span>
+      <p class="proj-desc">Describe what VerifySG does, the problem it solves, and any notable scale or impact.</p>
+      <button class="proj-reflect-toggle" aria-expanded="false">
+        <svg class="proj-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+        see more
+      </button>
+      <div class="proj-reflect">
+        <p>Your reflection on what you learned, what went well, and what you'd approach differently next time.</p>
       </div>
-    </a>
+    </div>
 
-    <a class="project-card" href="https://github.com/yourusername/project-three" target="_blank">
-      <div>
-        <div class="project-name">Project Three</div>
-        <p class="project-desc">One or two sentences describing what it does, the problem it solves, and any notable scale or impact.</p>
-        <div class="tags" style="margin-top:10px">
-          <span class="tag">Tech 1</span><span class="tag">Tech 2</span>
+    <div class="proj-card reveal" style="transition-delay:0.15s">
+      <div class="proj-header">
+        <h3 class="proj-name">Project Three</h3>
+        <div class="proj-meta-right">
+          <span class="proj-date">2023</span>
         </div>
       </div>
-      <div class="project-meta">
-        <span class="project-lang"><span class="lang-dot" style="background:#3572a5"></span>Language</span>
-        <span class="project-arrow">→</span>
+      <p class="proj-desc">Describe what this project does, the problem it solves, and any notable scale or impact.</p>
+      <button class="proj-reflect-toggle" aria-expanded="false">
+        <svg class="proj-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+        see more
+      </button>
+      <div class="proj-reflect">
+        <p>Your reflection on what you learned, what went well, and what you'd approach differently next time.</p>
       </div>
-    </a>
+    </div>
 
   </div>
 </div>
@@ -415,12 +593,6 @@
       <p class="section-label" style="margin-bottom:0.75rem">03 — contact</p>
       <h2>Let's talk</h2>
       <p>What you're open to — roles, freelance, collabs, etc. A sentence on response time is a nice touch.</p>
-      <div class="contact-links">
-        <a class="contact-link" href="mailto:juninhoycj@gmail.com">✉ Email</a>
-        <a class="contact-link" href="https://github.com/juninhoycj-sudo" target="_blank">⌥ GitHub</a>
-        <a class="contact-link" href="https://linkedin.com/in/juninho-yeu" target="_blank">↗ LinkedIn</a>
-        <a class="contact-link" href="/resume.pdf" target="_blank">↓ Resume</a>
-      </div>
     </div>
   </div>
 </div>
@@ -601,6 +773,155 @@
 })();
 </script>
 <script src="transitions.js"></script>
+<script>
+document.querySelectorAll('.proj-card').forEach(card => {
+  const toggle = card.querySelector('.proj-reflect-toggle');
+  const panel  = card.querySelector('.proj-reflect');
+
+  function flipCard() {
+    const expanded = toggle.getAttribute('aria-expanded') === 'true';
+    toggle.setAttribute('aria-expanded', String(!expanded));
+    panel.classList.toggle('open', !expanded);
+  }
+
+  card.addEventListener('click', flipCard);
+
+  // GitHub link should navigate, not toggle
+  card.querySelectorAll('.proj-github').forEach(link => {
+    link.addEventListener('click', e => e.stopPropagation());
+  });
+});
+</script>
+<script>
+(function () {
+  const SIZE  = 52;
+  const SPEED = 0.55;
+  const bubbles = document.querySelectorAll('.social-bubble');
+
+  const starts = [
+    { x: 0.12, y: 0.25, angle: 0.8 },
+    { x: 0.78, y: 0.55, angle: 2.5 },
+    { x: 0.45, y: 0.75, angle: 4.2 },
+  ];
+
+  const states = Array.from(bubbles).map((bubble, i) => {
+    const sp = starts[i];
+    const ix = sp.x * (window.innerWidth  - SIZE);
+    const iy = sp.y * (window.innerHeight - SIZE);
+    const s = {
+      x: ix, y: iy,
+      vx: Math.cos(sp.angle) * SPEED,
+      vy: Math.sin(sp.angle) * SPEED,
+      phase: i * 2.1,
+      paused: false,
+      targetX: ix, targetY: iy,
+    };
+    bubble.addEventListener('mouseenter', () => s.paused = true);
+    bubble.addEventListener('mouseleave', () => s.paused = false);
+    bubble.style.transform = `translate(${s.x}px,${s.y}px)`;
+    return s;
+  });
+
+  let mode = 'floating';
+
+  function getDockPositions() {
+    const mid = window.innerHeight / 2;
+    return [
+      { x: 20, y: mid - 62 },
+      { x: 20, y: mid      },
+      { x: 20, y: mid + 62 },
+    ];
+  }
+
+  // Bubble order: [0]=GitHub  [1]=LinkedIn  [2]=Email
+  // Snap into the lower portion of the contact-inner box
+  function getSnapPositions() {
+    const inner = document.querySelector('.contact-inner');
+    if (!inner) return getDockPositions();
+    const r   = inner.getBoundingClientRect();
+    const cx  = r.left + r.width  / 2;
+    const y   = r.bottom - SIZE - 36;   // 36px above the bottom border
+    const gap = SIZE + 16;
+    return [
+      { x: cx - gap - SIZE / 2, y },
+      { x: cx        - SIZE / 2, y },
+      { x: cx + gap  - SIZE / 2, y },
+    ];
+  }
+
+  function applyTargets(positions) {
+    positions.forEach((pos, i) => {
+      states[i].targetX = pos.x;
+      states[i].targetY = pos.y;
+    });
+  }
+
+  function setMode(newMode) {
+    if (newMode === mode) return;
+    mode = newMode;
+    if (newMode === 'docked') {
+      applyTargets(getDockPositions());
+    } else if (newMode === 'snapped') {
+      applyTargets(getSnapPositions());
+    } else {
+      // Resuming float — sync targets to current position and give fresh velocities
+      states.forEach(s => {
+        s.targetX = s.x;
+        s.targetY = s.y;
+        const angle = Math.random() * Math.PI * 2;
+        s.vx = Math.cos(angle) * SPEED;
+        s.vy = Math.sin(angle) * SPEED;
+      });
+    }
+  }
+
+  function updateMode() {
+    const sy         = window.scrollY;
+    const H          = window.innerHeight;
+    const contactEl  = document.getElementById('contact');
+    const contactTop = contactEl ? contactEl.offsetTop : Infinity;
+
+    let next;
+    if (sy < H * 0.5)                    next = 'floating';
+    else if (sy >= contactTop - H * 0.35) next = 'snapped';
+    else                                   next = 'docked';
+    setMode(next);
+  }
+
+  window.addEventListener('scroll', updateMode, { passive: true });
+
+  (function tick() {
+    const t = Date.now() * 0.001;
+    const W = window.innerWidth, H = window.innerHeight;
+
+    // Recompute snap targets every frame so bubbles track the box as it scrolls
+    if (mode === 'snapped') applyTargets(getSnapPositions());
+
+    states.forEach((s, i) => {
+      if (mode === 'floating' && !s.paused) {
+        const wobble = 1 + Math.sin(t * 0.4 + s.phase) * 0.18;
+        s.x += s.vx * wobble;
+        s.y += s.vy * wobble;
+
+        if (s.x <= 0)        { s.x = 0;        s.vx =  Math.abs(s.vx); }
+        if (s.x >= W - SIZE) { s.x = W - SIZE; s.vx = -Math.abs(s.vx); }
+        if (s.y <= 0)        { s.y = 0;        s.vy =  Math.abs(s.vy); }
+        if (s.y >= H - SIZE) { s.y = H - SIZE; s.vy = -Math.abs(s.vy); }
+
+        s.targetX = s.x;
+        s.targetY = s.y;
+        bubbles[i].style.transform = `translate(${s.x}px,${s.y}px)`;
+      } else {
+        s.x += (s.targetX - s.x) * 0.065;
+        s.y += (s.targetY - s.y) * 0.065;
+        bubbles[i].style.transform = `translate(${s.x}px,${s.y}px)`;
+      }
+    });
+
+    requestAnimationFrame(tick);
+  })();
+})();
+</script>
 <script>
 (function () {
   const canvas = document.getElementById('bg-canvas');
