@@ -247,15 +247,15 @@
 
   .proj-meta-right {
     display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 8px;
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
     flex-shrink: 0;
   }
 
   .proj-date {
     font-family: var(--mono);
-    font-size: 11px;
+    font-size: 13px;
     color: var(--muted);
     letter-spacing: 0.06em;
   }
@@ -312,11 +312,13 @@
   }
   .proj-reflect-toggle[aria-expanded="true"] .proj-chevron { transform: rotate(180deg); }
 
+  /* toggle + reflect live in one wrapper so no flex gap leaks below the button */
+  .proj-more { display: flex; flex-direction: column; }
+
   .proj-reflect {
     max-height: 0;
     overflow: hidden;
-    transition: max-height 0.35s ease, padding-top 0.35s ease, border-color 0s 0.35s;
-    border-top: 1px solid transparent;
+    transition: max-height 0.4s ease, padding-top 0.4s ease;
     padding-top: 0;
     font-size: 14px;
     line-height: 1.8;
@@ -324,11 +326,11 @@
   }
   .proj-reflect.open {
     max-height: 600px;
-    border-top-color: var(--border);
     padding-top: 0.9rem;
-    transition: max-height 0.35s ease, padding-top 0.35s ease, border-color 0s;
+    border-top: 1px solid var(--border);
   }
-  .proj-reflect p { margin: 0; }
+  .proj-reflect p { margin: 0 0 0.65rem; }
+  .proj-reflect p:last-child { margin-bottom: 0; }
 
   /* ── REVEAL ── */
   .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.55s ease, transform 0.55s ease; }
@@ -521,25 +523,72 @@
   </div>
 
   <div class="proj-grid">
-
     <div class="proj-card reveal" style="transition-delay:0.05s">
       <div class="proj-header">
-        <h3 class="proj-name">NTU Sports Matching</h3>
+        <h3 class="proj-name">Portfolio Website</h3>
         <div class="proj-meta-right">
-          <span class="proj-date">2024</span>
-          <a class="proj-github" href="https://github.com/yourusername/ntu-sports-matching" target="_blank">
+          <span class="proj-date">June 2026</span>
+          <a class="proj-github" href="https://github.com/juninhoycj-sudo/Portfolio-Website" target="_blank">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
             GitHub
           </a>
         </div>
       </div>
-      <p class="proj-desc">Describe what NTU Sports Matching does, the problem it solves, and any notable scale or impact.</p>
-      <button class="proj-reflect-toggle" aria-expanded="false">
-        <svg class="proj-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
-        see more
-      </button>
-      <div class="proj-reflect">
-        <p>Your reflection on what you learned, what went well, and what you'd approach differently next time.</p>
+      <p class="proj-desc">
+        My personal portfolio website. Built to introduce myself, showcase my work, and connect people to my socials. Idea came from seeing some friend's with their own websites and wanting a place to store my work.
+
+      </p>
+      <div class="proj-more">
+        <button class="proj-reflect-toggle" aria-expanded="false">
+          <svg class="proj-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+          see more
+        </button>
+        <div class="proj-reflect">
+          <p>
+            After experiencing two hackathons, I really wanted a place to store my projects, showcase myself and some personality. I applied some GenAI techniques I learnt from the hackathons to slowly build this site.
+            I took alot of inspiration from others though but I hope you all can feel my personal touches! It was a great learning experience and refresher as I have built websites before in Polytechnic but definitely not on this scale.
+            Going through every edit, prompting the AI and learning through inspection and testing. The playground section of my code is 100% handwritten and yeah... you can see how much difference in the amount of work you can do in a day
+            vs GenAI. More to come on this website so stay tuned!
+          </p>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="proj-card reveal" style="transition-delay:0.05s">
+      <div class="proj-header">
+        <h3 class="proj-name">NTU Sports Matching</h3>
+        <div class="proj-meta-right">
+          <span class="proj-date">June 2026</span>
+          <a class="proj-github" href="https://github.com/tensixn/SummerBuild" target="_blank">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+            GitHub
+          </a>
+        </div>
+      </div>
+      <p class="proj-desc">
+        Built for NTU SummerBuild 2026. A mobile app that helps NTU students find, host and join pickup sports games within seconds. Built using free tier tools like Supabase and test deployed on ExpoGo.
+        The app features many social aspects and tools that promote continued long term use and adoption like: friend system, streaks, live maps, ratings and comments.
+      </p>
+      <div class="proj-more">
+        <button class="proj-reflect-toggle" aria-expanded="false">
+          <svg class="proj-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+          see more
+        </button>
+        <div class="proj-reflect">
+          <p>
+            This was my second hackathon, atlhough a week apart from my first, it was a great learning experience. I reinforced my understanding that hackathons are not all about great ideas and execution
+            but also about having a great presentation pitch, a compelling story and clear explanations. We built too much and tried to make it too polished and functional instead of building a more novel
+            and unique solution, which in hindsight was the whole purpose of hackathons... Great ideas.
+          </p>
+          <p>
+            In future, I should be looking into spending more time on the ideation phase and crafting up an idea that is flexible and unique before diving into the build. We should have also maybe looked into using the AI model from
+            the partnering company REKA AI, or even integrating AI in our build.
+          </p>
+          <p>
+            Although we didn't win any awards, we were proud of our project as it addressed a reccuring problem in our student lives.
+          </p>
+        </div>
       </div>
     </div>
 
@@ -547,37 +596,73 @@
       <div class="proj-header">
         <h3 class="proj-name">VerifySG</h3>
         <div class="proj-meta-right">
-          <span class="proj-date">2024</span>
-          <a class="proj-github" href="https://github.com/yourusername/verifysg" target="_blank">
+          <span class="proj-date">June 2026</span>
+          <a class="proj-github" href="https://github.com/juninhoycj-sudo/VerifySG" target="_blank">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
             GitHub
           </a>
         </div>
       </div>
-      <p class="proj-desc">Describe what VerifySG does, the problem it solves, and any notable scale or impact.</p>
-      <button class="proj-reflect-toggle" aria-expanded="false">
-        <svg class="proj-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
-        see more
-      </button>
-      <div class="proj-reflect">
-        <p>Your reflection on what you learned, what went well, and what you'd approach differently next time.</p>
+      <p class="proj-desc">
+        Built for DSTA Brainhack Code_EXP 2026. VerifySG is a webapp that assists users to detect scams in photos, screenshots, text and links. It was built
+        using Node.js, and routed through Gemini API and their Gemini 3.5 Flash model to analyse the media, and return an in-depth analysis, red flags, steps to take.
+        The app allows users to share a simple warning card to their friends and family via social media and messaging platforms as an image, and also post warnings to
+        their community. This community dashboard can be seen by all users to view recent warnings and take precaution.
+      </p>
+      <div class="proj-more">
+        <button class="proj-reflect-toggle" aria-expanded="false">
+          <svg class="proj-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+          see more
+        </button>
+        <div class="proj-reflect">
+          <p>
+            This was my first hackathon experience, we made it through qualifiers and placed top 25 as finalists, and although it isn't a traditional overnight hackathon, it was an extremely great experience. 
+            Our team was highly inexperienced and rusty, having not done much since graduating from polytechnic and we took this as an opportunity to refresh and learn. Aaaaand we realised we were out of our depth. HAHAHAHAHA.
+          </p>
+          <p>
+            There were a lot of learning points, first was coming up with a unique solution that addresses the topics set by the organisers. With very specific target demographics and issues, it was hard to come up
+            with very novel ideas, and this led me to realise that I don't just need to have great technical ability, but also think more about problems and ideas on the daily. Having a more inquisitve outlook on my
+            surroundings and jotting them down will be key to coming up with newer ideas in future.
+          </p>
+          <p>
+            Second was the role of AI in today's field. Agentic AI has leveled the field and is revolutionary. Builds that would take weeks or months can be completed in days. Everyone can build apps and websites, but
+            the key is in the human aspects of your build. The UI design, user experience, the idea and problem it solves, these are all key things that AI cannot replicate. Sure it is easy to just tell Claude to make
+            me an app, but there is also skill in prompt engineering, slowly building a website from scratch with a vision in mind, sets you apart from the hundreds and thousands of generated websites popping up everyday
+            by students.
+          </p>
+          <p>
+            Lastly is the art of presentation. I can't just have a great idea, I need to sell it. Every team I saw and interacted with had a compelling story, great visuals and well rehearsed lines. It made me truly believe
+            in their product and its impact. Whereas our team sort of winged the presentation, kinda just diving into the app and showing it to the judges. We didn't really see the importance of the presentation and it showed.
+            The judges were disengaged and questioned the effectiveness of our solution and the target demographic it will serve. I think it will be beneficial to learn more from my peers in school about their presentation techniques
+            and tools they use to draw interest.
+          </p>
+        </div>
       </div>
     </div>
 
     <div class="proj-card reveal" style="transition-delay:0.15s">
       <div class="proj-header">
-        <h3 class="proj-name">Project Three</h3>
+        <h3 class="proj-name">Turn Based Combat Arena</h3>
         <div class="proj-meta-right">
-          <span class="proj-date">2023</span>
+          <span class="proj-date">March 2026</span>
+          <a class="proj-github" href="https://github.com/wangsengg/SC2002_FDAE_Group6_Turn-Based-Combat-Arena" target="_blank">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+            GitHub
+          </a>
         </div>
       </div>
-      <p class="proj-desc">Describe what this project does, the problem it solves, and any notable scale or impact.</p>
-      <button class="proj-reflect-toggle" aria-expanded="false">
-        <svg class="proj-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
-        see more
-      </button>
-      <div class="proj-reflect">
-        <p>Your reflection on what you learned, what went well, and what you'd approach differently next time.</p>
+      <p class="proj-desc">A simple turn based combat game built for OODP Module. Written in Java.</p>
+      <div class="proj-more">
+        <button class="proj-reflect-toggle" aria-expanded="false">
+          <svg class="proj-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+          see more
+        </button>
+        <div class="proj-reflect">
+          <p>
+            First Github documented project in NTU, it was definitely a learning curve, documenting, committing and logging code onto Github. It wasn't particularly difficult or challenging, large thanks to
+            GenAI tools to build a great skeleton, and us filling out the code content along the way.
+          </p>
+        </div>
       </div>
     </div>
 
@@ -591,14 +676,14 @@
   <div class="reveal">
     <div class="contact-inner">
       <p class="section-label" style="margin-bottom:0.75rem">03 — contact</p>
-      <h2>Let's talk</h2>
-      <p>What you're open to — roles, freelance, collabs, etc. A sentence on response time is a nice touch.</p>
+      <h2>Get in Touch!</h2>
+      <p>Open to part time roles, internships and project opportunities! I usually respond within a day!</p>
     </div>
   </div>
 </div>
 </section>
 
-<footer>// Juninho · 2025</footer>
+<footer>// Juninho · 2026 //</footer>
 
 <script>
 (function () {
@@ -785,8 +870,6 @@ document.querySelectorAll('.proj-card').forEach(card => {
   }
 
   card.addEventListener('click', flipCard);
-
-  // GitHub link should navigate, not toggle
   card.querySelectorAll('.proj-github').forEach(link => {
     link.addEventListener('click', e => e.stopPropagation());
   });
