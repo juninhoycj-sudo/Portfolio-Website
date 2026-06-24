@@ -377,7 +377,7 @@
   }
 
 
-  @media (max-width: 740px) { .social-bubble { display: none; } }
+  @media (max-width: 740px) { .social-bubble { width: 44px; height: 44px; } }
 
   /* ── CONTACT FORM ── */
   .contact-form {
@@ -1107,11 +1107,14 @@ document.querySelectorAll('.proj-card').forEach(card => {
   let mode = 'floating';
 
   function getDockPositions() {
-    const mid = window.innerHeight / 2;
+    const mid    = window.innerHeight / 2;
+    const mobile = window.innerWidth <= 740;
+    // On mobile, tuck fully off the left edge so they don't block content
+    const x = mobile ? -(SIZE + 4) : 20;
     return [
-      { x: 20, y: mid - 62 },
-      { x: 20, y: mid      },
-      { x: 20, y: mid + 62 },
+      { x, y: mid - 62 },
+      { x, y: mid      },
+      { x, y: mid + 62 },
     ];
   }
 
