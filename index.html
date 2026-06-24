@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Juninho</title>
+<title>Joon's World</title>
+<link rel="icon" type="image/png" href="popcatlogo.png">
 <link rel="stylesheet" href="styles.css"/>
 <style>
   html { scroll-behavior: smooth; }
@@ -376,9 +377,99 @@
   }
 
 
-  @media (max-width: 740px) { .social-bubble { width: 44px; height: 44px; } }
+  @media (max-width: 740px) { .social-bubble { display: none; } }
 
-  /* extra bottom padding so bubbles have room inside the box */
+  /* ── CONTACT FORM ── */
+  .contact-form {
+    margin-top: 1.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    text-align: left;
+    width: 100%;
+    max-width: 520px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .form-group label {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .form-group input,
+  .form-group textarea {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 0.65rem 0.85rem;
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.5;
+    resize: vertical;
+    transition: border-color 0.2s;
+    outline: none;
+    width: 100%;
+  }
+
+  .form-group input:focus,
+  .form-group textarea:focus { border-color: var(--accent); }
+
+  .form-group input.input-error,
+  .form-group textarea.input-error { border-color: #f87171; }
+
+  .form-error {
+    display: none;
+    color: #f87171;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    margin-top: 0.3rem;
+  }
+  .form-error.visible { display: block; }
+
+  .form-group input::placeholder,
+  .form-group textarea::placeholder { color: var(--muted); opacity: 0.5; }
+
+  .form-submit {
+    align-self: center;
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #0d0f12;
+    background: var(--accent);
+    border: none;
+    border-radius: 6px;
+    padding: 0.7rem 2rem;
+    cursor: pointer;
+    font-weight: 700;
+    transition: opacity 0.2s, box-shadow 0.2s;
+  }
+  .form-submit:hover {
+    opacity: 0.88;
+    box-shadow: 0 0 18px rgba(74,222,128,0.3);
+  }
+
+  @media (max-width: 640px) { .form-row { grid-template-columns: 1fr; } }
+
+  /* extra bottom space for the snapped bubbles */
   #contact .contact-inner { padding-bottom: calc(2.5rem + 88px); }
 </style>
 </head>
@@ -678,12 +769,37 @@
       <p class="section-label" style="margin-bottom:0.75rem">03 — contact</p>
       <h2>Get in Touch!</h2>
       <p>Open to part time roles, internships and project opportunities! I usually respond within a day!</p>
+
+      <form class="contact-form" action="https://api.web3forms.com/submit" method="POST" novalidate>
+        <input type="hidden" name="access_key" value="faa990af-2602-42e0-88a7-a183fe294e7b">
+        <input type="hidden" name="subject" value="New message from jooniee.dev">
+        <input type="checkbox" name="botcheck" style="display:none">
+        <div class="form-row">
+          <div class="form-group">
+            <input type="text" name="name" placeholder="Your Name">
+            <span class="form-error" data-field="name"></span>
+          </div>
+          <div class="form-group">
+            <input type="email" name="email" placeholder="Email">
+            <span class="form-error" data-field="email"></span>
+          </div>
+        </div>
+        <div class="form-group">
+          <textarea name="message" rows="5" placeholder="What's on your mind?"></textarea>
+          <span class="form-error" data-field="message"></span>
+        </div>
+        <button type="submit" class="form-submit">Send Message →</button>
+      </form>
     </div>
   </div>
 </div>
 </section>
 
 <footer>// Juninho · 2026 //</footer>
+
+<button class="back-top" id="back-top" aria-label="Back to top">
+  <svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>
+</button>
 
 <script>
 (function () {
@@ -861,6 +977,87 @@
 </script>
 <script src="transitions.js"></script>
 <script>
+/* ── Contact form — custom validation + async submit ── */
+(function () {
+  const form = document.querySelector('.contact-form');
+  if (!form) return;
+  const btn = form.querySelector('.form-submit');
+
+  function showError(name, msg) {
+    const input = form.querySelector(`[name="${name}"]`);
+    const span  = form.querySelector(`.form-error[data-field="${name}"]`);
+    if (input) input.classList.add('input-error');
+    if (span)  { span.textContent = msg; span.classList.add('visible'); }
+  }
+
+  function clearError(name) {
+    const input = form.querySelector(`[name="${name}"]`);
+    const span  = form.querySelector(`.form-error[data-field="${name}"]`);
+    if (input) input.classList.remove('input-error');
+    if (span)  { span.textContent = ''; span.classList.remove('visible'); }
+  }
+
+  // Clear error as soon as the user starts typing
+  form.querySelectorAll('input, textarea').forEach(el => {
+    el.addEventListener('input', () => clearError(el.name));
+  });
+
+  form.addEventListener('submit', async function (e) {
+    e.preventDefault();
+
+    // Validate
+    const name    = form.querySelector('[name="name"]');
+    const email   = form.querySelector('[name="email"]');
+    const message = form.querySelector('[name="message"]');
+    let valid = true;
+
+    clearError('name'); clearError('email'); clearError('message');
+
+    if (!name.value.trim())    { showError('name', 'Name is required'); valid = false; }
+    if (!email.value.trim())   { showError('email', 'Email is required'); valid = false; }
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)) {
+      showError('email', 'Enter a valid email'); valid = false;
+    }
+    if (!message.value.trim()) { showError('message', 'Message is required'); valid = false; }
+
+    if (!valid) return;
+
+    const original = btn.textContent;
+    btn.textContent = 'Sending…';
+    btn.disabled = true;
+
+    try {
+      const res  = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        body: new FormData(form),
+      });
+      const data = await res.json();
+
+      if (data.success) {
+        btn.textContent = 'Sent ✓';
+        form.reset();
+        setTimeout(() => { btn.textContent = original; btn.disabled = false; }, 3500);
+      } else {
+        btn.textContent = 'Failed — try again';
+        btn.disabled = false;
+      }
+    } catch {
+      btn.textContent = 'Failed — try again';
+      btn.disabled = false;
+    }
+  });
+})();
+
+/* ── Back to top ── */
+(function () {
+  const btn = document.getElementById('back-top');
+  window.addEventListener('scroll', () => {
+    btn.classList.toggle('visible', window.scrollY > window.innerHeight * 0.5);
+  }, { passive: true });
+  btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+})();
+</script>
+<script>
 document.querySelectorAll('.proj-card').forEach(card => {
   const toggle = card.querySelector('.proj-reflect-toggle');
   const panel  = card.querySelector('.proj-reflect');
@@ -919,13 +1116,13 @@ document.querySelectorAll('.proj-card').forEach(card => {
   }
 
   // Bubble order: [0]=GitHub  [1]=LinkedIn  [2]=Email
-  // Snap into the lower portion of the contact-inner box
+  // Snap into the extended bottom padding zone of the contact-inner box
   function getSnapPositions() {
     const inner = document.querySelector('.contact-inner');
     if (!inner) return getDockPositions();
     const r   = inner.getBoundingClientRect();
     const cx  = r.left + r.width  / 2;
-    const y   = r.bottom - SIZE - 36;   // 36px above the bottom border
+    const y   = r.bottom - SIZE - 36;
     const gap = SIZE + 16;
     return [
       { x: cx - gap - SIZE / 2, y },

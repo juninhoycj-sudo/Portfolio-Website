@@ -258,9 +258,42 @@ footer { text-align: center; padding: 2rem; font-family: var(--mono); font-size:
 @media (max-width: 640px) {
   nav { padding: 0 1rem; }
   .nav-links { display: none; }
-  .hamburger { display: flex; }
+  /* push hamburger into the third grid column so it sits flush right */
+  .hamburger { display: flex; grid-column: 3; justify-self: end; }
   .about-grid { grid-template-columns: 1fr; }
 }
+
+/* ── BACK TO TOP ── */
+.back-top {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 42px; height: 42px;
+  border-radius: 50%;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.3s, transform 0.3s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+  z-index: 40;
+  pointer-events: none;
+}
+.back-top.visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+.back-top:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+  box-shadow: 0 0 14px rgba(74,222,128,0.2);
+}
+.back-top svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 
 /* CUSTOM CURSOR */
 @media (pointer: fine) {
