@@ -1130,8 +1130,7 @@
       closeMenu();
       setTimeout(() => {
         if (!target) return;
-        const y = target.getBoundingClientRect().top + window.scrollY - 68;
-        window.scrollTo({ top: Math.max(0, y), behavior: 'smooth' });
+        window.scrollTo({ top: Math.max(0, target.offsetTop - 80), behavior: 'smooth' });
       }, 320);
     });
   });
