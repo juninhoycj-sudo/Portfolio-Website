@@ -16,8 +16,8 @@
 <link rel="icon" type="image/png" href="assets/cinnalogo.png">
 <link rel="stylesheet" href="styles.css"/>
 <style>
-  html { scroll-behavior: smooth; scroll-padding-top: 80px; }
-  section[id] { scroll-margin-top: 80px; }
+  html { scroll-behavior: smooth; scroll-padding-top: 72px; }
+  section[id] { scroll-margin-top: 72px; }
 
   /* ── INTRO ── */
   #intro-bg {
@@ -587,7 +587,7 @@
 <button class="intro-skip" id="skip-btn">skip →</button>
 
 <nav>
-  <a class="nav-logo" href="#hero">jooniee.dev</a>
+  <a class="nav-logo" href="#hero">joon's world</a>
   <ul class="nav-links">
     <li><a href="#about">about</a></li>
     <li><a href="#projects">projects</a></li>
@@ -1111,29 +1111,17 @@
     mobileMenu.classList.add('open');
     hamburger.classList.add('open');
     navEl.classList.add('menu-open');
-    document.documentElement.style.overflow = 'hidden';
   }
 
   function closeMenu() {
     mobileMenu.classList.remove('open');
     hamburger.classList.remove('open');
     navEl.classList.remove('menu-open');
-    document.documentElement.style.overflow = '';
   }
 
   hamburger.addEventListener('click', () => mobileMenu.classList.contains('open') ? closeMenu() : openMenu());
   mobileClose.addEventListener('click', closeMenu);
-  document.querySelectorAll('.mobile-nav a').forEach(a => {
-    a.addEventListener('click', e => {
-      e.preventDefault();
-      const target = document.querySelector(a.getAttribute('href'));
-      closeMenu();
-      setTimeout(() => {
-        if (!target) return;
-        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }, 350);
-    });
-  });
+  document.querySelectorAll('.mobile-nav a').forEach(a => a.addEventListener('click', closeMenu));
 })();
 </script>
 <script src="transitions.js"></script>
