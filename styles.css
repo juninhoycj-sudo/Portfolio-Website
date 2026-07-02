@@ -60,6 +60,7 @@ nav {
   padding: 0 2.5rem;
   height: 68px;
 }
+nav.menu-open { z-index: 201; }
 
 .nav-logo {
   font-family: var(--sans);

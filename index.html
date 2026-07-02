@@ -1102,6 +1102,7 @@
   });
 
   /* ── Hamburger menu ── */
+  const navEl      = document.querySelector('nav');
   const hamburger  = document.getElementById('hamburger');
   const mobileMenu = document.getElementById('mobile-menu');
   const mobileClose = document.getElementById('mobile-close');
@@ -1109,16 +1110,18 @@
   function openMenu() {
     mobileMenu.classList.add('open');
     hamburger.classList.add('open');
+    navEl.classList.add('menu-open');
     document.documentElement.style.overflow = 'hidden';
   }
 
   function closeMenu() {
     mobileMenu.classList.remove('open');
     hamburger.classList.remove('open');
+    navEl.classList.remove('menu-open');
     document.documentElement.style.overflow = '';
   }
 
-  hamburger.addEventListener('click', openMenu);
+  hamburger.addEventListener('click', () => mobileMenu.classList.contains('open') ? closeMenu() : openMenu());
   mobileClose.addEventListener('click', closeMenu);
   document.querySelectorAll('.mobile-nav a').forEach(a => a.addEventListener('click', closeMenu));
 })();
