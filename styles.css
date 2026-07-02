@@ -291,15 +291,14 @@ footer { text-align: center; padding: 2rem; font-family: var(--mono); font-size:
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  font-size: 15px;
   color: var(--muted);
   transition: border-color 0.2s, color 0.2s;
-  line-height: 1;
 }
+.theme-toggle svg { width: 15px; height: 15px; display: block; }
 .theme-toggle:hover { border-color: var(--accent); color: var(--accent); }
 
 @media (max-width: 640px) {
-  nav { padding: 0 1rem; }
+  nav { padding: 0 1rem; display: flex; justify-content: space-between; align-items: center; }
   .nav-links { display: none; }
   .hamburger { display: flex; }
   .about-grid { grid-template-columns: 1fr; }
