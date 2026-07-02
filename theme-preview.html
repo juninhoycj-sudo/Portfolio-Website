@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Theme Preview — Cinnamoroll</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ── DARK: deep navy, sky blue + blush pink ── */
+:root, [data-theme="dark"] {
+  --bg:      #0d1117;
+  --bg2:     #151c28;
+  --bg3:     #1c2536;
+  --border:  rgba(147,197,253,0.1);
+  --border2: rgba(147,197,253,0.2);
+  --text:    #e8f0ff;
+  --muted:   #8fa3c8;
+  --accent:  #93c5fd;   /* Cinnamoroll sky blue */
+  --accent2: #f9a8d4;   /* blush pink */
+}
+
+/* ── LIGHT: soft cream-blue, richer tones ── */
+[data-theme="light"] {
+  --bg:      #f5f8ff;
+  --bg2:     #eaf1ff;
+  --bg3:     #dce8ff;
+  --border:  rgba(96,165,250,0.2);
+  --border2: rgba(96,165,250,0.35);
+  --text:    #1a2e4a;
+  --muted:   #5a7a9a;
+  --accent:  #3b82f6;   /* richer blue for light bg */
+  --accent2: #ec4899;   /* richer pink for light bg */
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  padding: 2rem;
+  transition: background 0.3s, color 0.3s;
+}
+
+/* toggle */
+.toggle-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+}
+.toggle-label {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.toggle-btn {
+  background: var(--bg2);
+  border: 1px solid var(--border2);
+  border-radius: 999px;
+  padding: 6px 20px;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--accent);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.toggle-btn:hover { background: var(--bg3); }
+
+/* preview grid */
+.preview {
+  max-width: 860px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+/* nav */
+.nav-preview {
+  background: color-mix(in srgb, var(--bg) 80%, transparent);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 0.9rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  backdrop-filter: blur(8px);
+}
+.nav-logo { font-weight: 700; font-size: 15px; color: var(--accent); }
+.nav-links { display: flex; gap: 1.5rem; }
+.nav-links a { font-size: 13px; color: var(--muted); text-decoration: none; font-weight: 500; }
+
+/* hero */
+.hero-preview {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 3rem 2rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.hero-preview::before {
+  content: '';
+  position: absolute;
+  top: -80px; left: -80px;
+  width: 360px; height: 360px;
+  background: radial-gradient(circle, color-mix(in srgb, var(--accent) 18%, transparent) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-preview::after {
+  content: '';
+  position: absolute;
+  bottom: -60px; right: -60px;
+  width: 280px; height: 280px;
+  background: radial-gradient(circle, color-mix(in srgb, var(--accent2) 15%, transparent) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--text);
+  position: relative;
+  margin-bottom: 0.6rem;
+}
+.hero-role {
+  font-size: 1rem;
+  color: var(--muted);
+  position: relative;
+}
+.hero-role span { color: var(--accent2); }
+
+/* section header */
+.section-header {
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border);
+}
+.section-label {
+  font-size: 11px; font-weight: 600;
+  color: var(--accent); letter-spacing: 0.1em;
+  text-transform: uppercase; margin-bottom: 0.3rem;
+}
+.section-h2 { font-size: 1.5rem; font-weight: 700; color: var(--text); }
+
+/* two columns */
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+/* project card */
+.proj-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.proj-header { display: flex; justify-content: space-between; align-items: flex-start; }
+.proj-name { font-size: 15px; font-weight: 600; color: var(--text); }
+.proj-date { font-size: 12px; color: var(--muted); }
+.proj-desc { font-size: 13px; color: var(--muted); line-height: 1.65; }
+.proj-divider { border: none; border-top: 1px solid var(--border); margin: 0.25rem 0; }
+.proj-chevron { text-align: center; color: var(--muted); font-size: 16px; }
+
+/* status + skills */
+.boxes { display: flex; gap: 1rem; flex-wrap: wrap; }
+.status-box, .skills-box {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.9rem 1.1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+.status-item { display: flex; gap: 1rem; font-size: 12px; }
+.status-key { color: var(--muted); min-width: 60px; font-weight: 500; }
+.status-val { color: var(--text); }
+.status-active { color: var(--accent); }
+.skills-box { gap: 0.6rem; }
+.skills-title {
+  font-size: 10px; font-weight: 600;
+  color: var(--accent2); letter-spacing: 0.08em;
+  text-transform: uppercase; margin-bottom: 0.2rem;
+}
+.tags { display: flex; flex-wrap: wrap; gap: 5px; }
+.tag {
+  font-size: 11px; color: var(--muted);
+  background: var(--bg3); border: 1px solid var(--border);
+  border-radius: 4px; padding: 3px 9px;
+}
+
+/* contact */
+.contact-box {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 2rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+.contact-box h3 { font-size: 1.25rem; font-weight: 700; color: var(--text); }
+.contact-box p { font-size: 14px; color: var(--muted); max-width: 340px; }
+.btn {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px; font-weight: 600;
+  letter-spacing: 0.05em; text-transform: uppercase;
+  padding: 10px 24px; border-radius: 6px; border: none;
+  background: var(--accent); color: var(--bg); cursor: pointer;
+}
+.bubble-row { display: flex; gap: 10px; }
+.bubble {
+  width: 44px; height: 44px; border-radius: 50%;
+  background: var(--bg3); border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--muted); font-size: 18px;
+}
+</style>
+</head>
+<body>
+
+<div class="toggle-bar">
+  <span class="toggle-label" id="mode-label">dark mode</span>
+  <button class="toggle-btn" id="toggle">switch to light ☀️</button>
+</div>
+
+<div class="preview">
+
+  <div class="nav-preview">
+    <div class="nav-logo">jooniee.dev</div>
+    <div class="nav-links">
+      <a href="#">about</a>
+      <a href="#">projects</a>
+      <a href="#">contact</a>
+    </div>
+  </div>
+
+  <div class="hero-preview">
+    <div class="hero-h1">hello, i'm juninho</div>
+    <div class="hero-role">i'm a <span>software engineer</span> ▊</div>
+  </div>
+
+  <div class="section-header">
+    <div class="section-label">01 — about</div>
+    <div class="section-h2">Who am I?</div>
+  </div>
+
+  <div class="boxes">
+    <div class="status-box">
+      <div class="status-item"><span class="status-key">status</span><span class="status-val status-active">studying ●</span></div>
+      <div class="status-item"><span class="status-key">role</span><span class="status-val">CS Undergrad · Year 2</span></div>
+      <div class="status-item"><span class="status-key">open to</span><span class="status-val">internships</span></div>
+    </div>
+    <div class="skills-box">
+      <div>
+        <div class="skills-title">languages</div>
+        <div class="tags"><span class="tag">Python</span><span class="tag">JavaScript</span><span class="tag">Java</span></div>
+      </div>
+      <div>
+        <div class="skills-title">interests</div>
+        <div class="tags"><span class="tag">AI / ML</span><span class="tag">web dev</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div class="proj-card">
+      <div class="proj-header">
+        <div class="proj-name">Portfolio Website</div>
+        <div class="proj-date">June 2026</div>
+      </div>
+      <div class="proj-desc">My personal portfolio. Built to introduce myself and showcase my work.</div>
+      <hr class="proj-divider">
+      <div class="proj-chevron">∨</div>
+    </div>
+    <div class="proj-card">
+      <div class="proj-header">
+        <div class="proj-name">VerifySG</div>
+        <div class="proj-date">June 2026</div>
+      </div>
+      <div class="proj-desc">Scam detection webapp using Node.js and the Gemini API to analyse media.</div>
+      <hr class="proj-divider">
+      <div class="proj-chevron">∨</div>
+    </div>
+  </div>
+
+  <div class="contact-box">
+    <h3>Contact Me!</h3>
+    <p>Open to internships, part-time roles and project opportunities!</p>
+    <div class="bubble-row">
+      <div class="bubble">🐙</div>
+      <div class="bubble">in</div>
+      <div class="bubble">✉</div>
+    </div>
+    <button class="btn">Send Message →</button>
+  </div>
+
+</div>
+
+<script>
+  const toggle = document.getElementById('toggle');
+  const label  = document.getElementById('mode-label');
+  let dark = true;
+  toggle.addEventListener('click', () => {
+    dark = !dark;
+    document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+    label.textContent  = dark ? 'dark mode' : 'light mode';
+    toggle.textContent = dark ? 'switch to light ☀️' : 'switch to dark 🌙';
+  });
+</script>
+</body>
+</html>

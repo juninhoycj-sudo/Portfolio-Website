@@ -4,21 +4,33 @@ document.addEventListener('DOMContentLoaded', () => {
     const cat = document.createElement('div');
     cat.className = 'cursor-cat';
     const img = document.createElement('img');
-    img.src = 'popcat.png';
     cat.appendChild(img);
     document.body.appendChild(cat);
 
+    let isDown = false;
+
+    function updateCursor() {
+      const isDark = document.documentElement.getAttribute('data-theme') !== 'light';
+      img.src = `cinnaCursor${isDark ? 'White' : 'Black'}${isDown ? 2 : 1}.png`;
+    }
+
+    updateCursor();
+
+    new MutationObserver(updateCursor).observe(document.documentElement, {
+      attributes: true, attributeFilter: ['data-theme']
+    });
+
     document.addEventListener('mousemove', e => {
-      cat.style.left = e.clientX + 'px';
-      cat.style.top  = e.clientY + 'px';
+      cat.style.left = (e.clientX - 2) + 'px';
+      cat.style.top  = (e.clientY - 2) + 'px';
     });
 
     document.addEventListener('mouseover', e => {
       cat.classList.toggle('expanded', !!e.target.closest('a, button, [role="button"]'));
     });
 
-    document.addEventListener('mousedown', () => cat.classList.add('closed'));
-    document.addEventListener('mouseup',   () => cat.classList.remove('closed'));
+    document.addEventListener('mousedown', () => { isDown = true;  updateCursor(); });
+    document.addEventListener('mouseup',   () => { isDown = false; updateCursor(); });
   }
 
   document.querySelectorAll('a[href]').forEach(link => {

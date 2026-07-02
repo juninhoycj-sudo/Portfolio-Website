@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>404 — Joon's World</title>
+<link rel="icon" type="image/png" href="popcatlogo.png">
+<link rel="stylesheet" href="styles.css"/>
+<style>
+  .not-found {
+    min-height: 100vh;
+    padding-top: 68px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    gap: 1rem;
+  }
+
+  .not-found h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text);
+    margin: 0;
+  }
+
+  .not-found p {
+    color: var(--muted);
+    font-size: 16px;
+    max-width: 340px;
+    margin: 0;
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="index.html">jooniee.dev</a>
+  <ul class="nav-links">
+    <li><a href="index.html#about">about</a></li>
+    <li><a href="index.html#projects">projects</a></li>
+    <li><a href="index.html#contact">contact</a></li>
+    <li><a href="test.html">playground</a></li>
+  </ul>
+  <div class="nav-right">
+    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">🌙</button>
+    <button class="hamburger" id="hamburger" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div class="mobile-menu" id="mobile-menu">
+  <button class="mobile-close" id="mobile-close">✕</button>
+  <nav class="mobile-nav">
+    <a href="index.html#about">about</a>
+    <a href="index.html#projects">projects</a>
+    <a href="index.html#contact">contact</a>
+    <a href="test.html">playground</a>
+  </nav>
+</div>
+
+<div class="not-found">
+  <h2>whoops nothing to see here</h2>
+  <p>This page doesn't exist or was moved.</p>
+  <a href="index.html" class="btn btn-primary" style="margin-top:0.5rem">← Back home</a>
+</div>
+
+<script src="transitions.js"></script>
+<script>
+  (function () {
+    const root  = document.documentElement;
+    const btn   = document.getElementById('theme-toggle');
+    const saved = localStorage.getItem('theme') || 'dark';
+    root.setAttribute('data-theme', saved);
+    btn.textContent = saved === 'dark' ? '🌙' : '☀️';
+    btn.addEventListener('click', () => {
+      const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      root.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+      btn.textContent = next === 'dark' ? '🌙' : '☀️';
+    });
+  })();
+
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const mobileClose = document.getElementById('mobile-close');
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    mobileMenu.classList.toggle('open');
+  });
+  mobileClose.addEventListener('click', () => {
+    hamburger.classList.remove('open');
+    mobileMenu.classList.remove('open');
+  });
+  mobileMenu.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      hamburger.classList.remove('open');
+      mobileMenu.classList.remove('open');
+    });
+  });
+</script>
+</body>
+</html>
