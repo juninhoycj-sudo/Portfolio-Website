@@ -1123,7 +1123,18 @@
 
   hamburger.addEventListener('click', () => mobileMenu.classList.contains('open') ? closeMenu() : openMenu());
   mobileClose.addEventListener('click', closeMenu);
-  document.querySelectorAll('.mobile-nav a').forEach(a => a.addEventListener('click', closeMenu));
+  document.querySelectorAll('.mobile-nav a').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      const target = document.querySelector(a.getAttribute('href'));
+      closeMenu();
+      setTimeout(() => {
+        if (!target) return;
+        const y = target.getBoundingClientRect().top + window.scrollY - 68;
+        window.scrollTo({ top: Math.max(0, y), behavior: 'smooth' });
+      }, 320);
+    });
+  });
 })();
 </script>
 <script src="transitions.js"></script>
