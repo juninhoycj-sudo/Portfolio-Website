@@ -303,6 +303,7 @@ footer { text-align: center; padding: 2rem; font-family: var(--mono); font-size:
   .nav-links { display: none; }
   .hamburger { display: flex; }
   .about-grid { grid-template-columns: 1fr; }
+  .main-section { padding-top: 100px; }
 }
 
 /* ── BACK TO TOP ── */
