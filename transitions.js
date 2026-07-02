@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function updateCursor() {
       const isDark = document.documentElement.getAttribute('data-theme') !== 'light';
-      img.src = `cinnaCursor${isDark ? 'White' : 'Black'}${isDown ? 2 : 1}.png`;
+      img.src = `assets/cinnaCursor${isDark ? 'White' : 'Black'}${isDown ? 2 : 1}.png`;
     }
 
     updateCursor();
